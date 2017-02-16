@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Psychosocial Education App</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="latest">Latest</string>
+    <string name="saved">Saved</string>
+
+    <string name="what">What is Schizophrenia?</string>
+    <string name="causes">Causes of Schizophrenia?</string>
+    <string name="symptoms">Symptoms of Schizophrenia?</string>
+    <string name="title_activity_individual">Individual</string>
+</resources>
