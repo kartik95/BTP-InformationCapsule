@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.1.1/support-annotations-25.1.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="b59b6ee8d6ecc03e672d253800430343493a6ed8">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.1.1_6b6d9164b5376a1eb08348293055309e028403da/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/support-v4/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-v4-25.1.1_d6e721245db223e892d3899ae084d38b777e117e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c03bf57f358aa10d253f21989e93bcf6014b3b17">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-vector-drawable-25.1.1_2dcf30ebb51fe1842098777c09f2be16198ee4aa/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/design/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="cd7951e04cfb9a8bf008d544a478d9a8d8192d38">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-design-25.1.1_952dc90ce4cbf8fe7a89d40c05a0ad53a3896801/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.github.nirhart/parallaxscroll/1.0/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="2574796fab3c6145ca6170821badd305f5e03669">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.github.nirhart-parallaxscroll-1.0_ac560a116e1d9a1fc55f0fd0406ace838734003b/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="c9649557905bf7a80fca9e0d54cbcb7662627860">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-recyclerview-v7-25.1.1_824a979383b25232637a532dc21d0654e2e317c0/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a8ae156c2726ac9c56daaf4b49452ec2cdb7bba9">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-cardview-v7-25.1.1_33a2d92a81055ab3f0db796e02c9825662c997ff/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="3e04ac8ca644ea7baddf6fdcf72e15c79e9df94a">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-ui-25.1.1_e7b9d510c18d98f56a6381fb2c87ba1666db316f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/support-fragment/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="e2719c102dca3a7a5b02ce07f769362da6ddb4ab">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-fragment-25.1.1_f50fa4789b0092a7042c11f3463bd530945fb202/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0d191c1a09e4892d059e5ce749e4ad4e08129e35">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.1.1_8db639f04a0c7a5b2a97836821a85fb942a4bd6e/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="30dfc5fa48f423dd070df661e30820443dd2c176">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_e727bc072b4df6030d719223085f2606ac417560/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="02741d05d4b697fba5e279e9881aaa1da0ca7c7f">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-compat-25.1.1_5eba095e1f3cec1678a7f5a0ff15cbb0f5540dcf/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb496cc08dd52551fc5ec6db3bc0632e95a89bb">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-appcompat-v7-25.1.1_9a3809ef82d647a3dcf9bc8215189b94280d7887/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a80bbda619d50ccb867a48526f1eeb2952cffcfd">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f2378fd2527aa7b051506f216f4381ee992e32c5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="7bde4c34162092e0a77e7f12dc85ed77c484cf5c">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-media-compat-25.1.1_18088b34cd989add88a45f5319c0255024824950/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="0fb891e8f0cfba0513043a7bb357513d229ca2cd">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-support-core-utils-25.1.1_11132c65eeae25edd907cfcdaaa02a74c4eb0471/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/transition/25.1.1/jars/classes.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.1.1_21472ba6db697b5230e140739089cb51d6140205/classes.dex" />
+    </item>
+
+</items>

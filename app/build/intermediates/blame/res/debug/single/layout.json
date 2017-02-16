@@ -72,12 +72,12 @@
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/layout/abc_action_bar_up_container.xml"
     },
     {
-        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/layout/fragment_saved.xml",
-        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/layout/fragment_saved.xml"
-    },
-    {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/layout/design_navigation_item.xml",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/design/25.1.1/res/layout/design_navigation_item.xml"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/layout/fragment_saved.xml",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/layout/fragment_saved.xml"
     },
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/layout/abc_dialog_title_material.xml",

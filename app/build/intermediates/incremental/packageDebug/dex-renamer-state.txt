@@ -1,0 +1,7 @@
+#Fri Feb 17 01:04:24 IST 2017
+base.0=/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_e727bc072b4df6030d719223085f2606ac417560
+renamed.1=classes2.dex
+renamed.0=classes.dex
+file.1=/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f2378fd2527aa7b051506f216f4381ee992e32c5/classes.dex
+base.1=/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f2378fd2527aa7b051506f216f4381ee992e32c5
+file.0=/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_e727bc072b4df6030d719223085f2606ac417560/classes.dex

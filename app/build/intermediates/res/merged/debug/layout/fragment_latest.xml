@@ -1,0 +1,44 @@
+<!--<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
+<!--xmlns:tools="http://schemas.android.com/tools"-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--tools:context="btp.psychosocialeducationapp.Latest">-->
+
+<!--&lt;!&ndash; TODO: Update blank fragment layout &ndash;&gt;-->
+<!--<TextView-->
+<!--android:layout_width="match_parent"-->
+<!--android:layout_height="match_parent"-->
+<!--android:text="@string/hello_blank_fragment" />-->
+
+<!--</FrameLayout>-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="btp.psychosocialeducationapp.LatestFragment">
+
+    <!--  Recycler View  -->
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="none" />
+
+
+    <!--<TextView-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:text="@string
+<android.support.design.widget.FloatingActionButton
+android:id="@+id/fab"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_gravity="bottom|end"
+android:layout_margin="@dimen/fab_margin"
+android:src="@drawable/plus" />/latest"-->
+    <!--android:textSize="40dp"-->
+    <!--android:textStyle="bold"-->
+    <!--android:layout_centerInParent="true"/>-->
+
+</RelativeLayout>
