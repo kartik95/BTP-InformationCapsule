@@ -55,6 +55,8 @@ package btp.psychosocialeducationapp;
 //
 //}
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.Uri;
@@ -65,38 +67,79 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
+import java.lang.reflect.Array;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import static btp.psychosocialeducationapp.R.id.recyclerView;
+import static btp.psychosocialeducationapp.R.id.title;
 
 public class LatestFragment extends Fragment {
+
     private View view;
-
-    private String title;//String for tab title
-
+    private HashMap<String, NewsFeed> savedNewsFeeds;
     private static RecyclerView recyclerView;
 
     public LatestFragment() {
     }
 
-    public LatestFragment(String title) {
-        this.title = title;//Setting tab title
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_latest, container, false);
+        this.view = inflater.inflate(R.layout.fragment_latest, container, false);
+
+        SharedPreferences prefs = this.getActivity().getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE);
+        Set<String> keysSet = prefs.getStringSet("mapKeys", null);
+        if (keysSet != null) {
+            savedNewsFeeds = new HashMap<>();
+            List<String> mapKeys = new ArrayList<>(keysSet);
+            Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new UriDeserializer()).create();
+            for (int i=0; i<mapKeys.size(); i++){
+                String key = mapKeys.get(i);
+                Log.d("Key : ", key);
+                String json = prefs.getString(key, "");
+                Log.d("Json : ", json);
+                NewsFeed newsFeed = gson.fromJson(json, NewsFeed.class);
+                savedNewsFeeds.put(key, newsFeed);
+            }
+        }
 
         setRecyclerView();
         return view;
 
+    }
+
+    public class UriDeserializer implements JsonDeserializer<Uri> {
+        @Override
+        public Uri deserialize(final JsonElement src, final Type srcType,
+                               final JsonDeserializationContext context) throws JsonParseException {
+            return Uri.parse(src.toString());
+        }
     }
 
     private ArrayList getTitles() {
@@ -110,13 +153,18 @@ public class LatestFragment extends Fragment {
         return titles;
     }
 
-//    private ArrayList getDescriptions() {
-//        ArrayList<String> descs = new ArrayList<>();
-//        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
-//        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
-//        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.");
-//        return descs;
-//    }
+
+    private ArrayList getDescriptions() {
+        ArrayList<String> descs = new ArrayList<>();
+        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
+        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
+        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.");
+        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
+        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
+        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.");
+        return descs;
+    }
+
 
     private ArrayList getDates() {
         ArrayList<String> dates = new ArrayList<>();
@@ -129,6 +177,7 @@ public class LatestFragment extends Fragment {
         return dates;
     }
 
+
     private ArrayList<Uri> getImageURIs() {
         ArrayList<Uri> imageURIs = new ArrayList<>();
         for (int i =1; i<=6; i++){
@@ -137,6 +186,18 @@ public class LatestFragment extends Fragment {
         }
         return imageURIs;
     }
+
+
+    private ArrayList<NewsFeed> getNewsFeeds(ArrayList<String> titles, ArrayList<String> dates, ArrayList<Uri> imageUris,
+                                             ArrayList<String> descs) {
+        ArrayList<NewsFeed> newsFeeds = new ArrayList<>();
+        for(int i=0; i<titles.size(); i++) {
+            NewsFeed newsFeed = new NewsFeed(titles.get(i), dates.get(i), imageUris.get(i), descs.get(i));
+            newsFeeds.add(newsFeed);
+        }
+        return newsFeeds;
+    }
+
 
     //Setting recycler view
     private void setRecyclerView() {
@@ -160,11 +221,14 @@ public class LatestFragment extends Fragment {
 //            arrayList.add(title+" Items " + i);//Adding items to recycler view
 //        }
 
-        ArrayList<String> titles = getTitles();
-        ArrayList<String> dates = getDates();
-        ArrayList<Uri> imageUris = getImageURIs();
+//        ArrayList<String> titles = getTitles();
+//        ArrayList<String> dates = getDates();
+//        ArrayList<Uri> imageUris = getImageURIs();
+//        ArrayList<String> descs = getDescriptions();
+        ArrayList<NewsFeed> newsFeeds = getNewsFeeds(getTitles(), getDates(), getImageURIs(), getDescriptions());
+        if (savedNewsFeeds == null) {savedNewsFeeds = new HashMap<>();}
 //        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), arrayList);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), titles, dates, imageUris);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), newsFeeds, savedNewsFeeds);
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
 
     }

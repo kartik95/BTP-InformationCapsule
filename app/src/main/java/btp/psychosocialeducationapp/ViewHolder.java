@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 public abstract class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -19,6 +20,7 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder{
     public ImageView image;
     public TextView date;
     public CardView cardView;
+    public ToggleButton save;
 
     public ViewHolder(View view) {
         super(view);
@@ -26,6 +28,7 @@ public abstract class ViewHolder extends RecyclerView.ViewHolder{
         this.image = (ImageView) view.findViewById(R.id.thumbnail);
         this.date = (TextView) view.findViewById(R.id.date);
         this.cardView = (CardView) view.findViewById(R.id.cardView);
+        this.save = (ToggleButton)  view.findViewById(R.id.save);
     }
 
 

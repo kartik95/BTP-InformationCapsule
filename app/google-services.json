@@ -1,0 +1,87 @@
+{
+  "project_info": {
+    "project_number": "949291619069",
+    "project_id": "psychosocial-education-app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949291619069:android:9dd068d5232499c4",
+        "android_client_info": {
+          "package_name": "com.btp.psychosocialeducationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949291619069-0o1vfsc09qqe8d5jmrpdi38qc0pm2a5a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.btp.psychosocialeducationapp",
+            "certificate_hash": "4083D0EF3CC9E620B40C847D3641A6CFA985921F"
+          }
+        },
+        {
+          "client_id": "949291619069-lancupo2j9qlcp0nh95np71ukomc64r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeUzMKlu_FN5epy_D2GtUMBVCCok0gDzU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:949291619069:android:7db4870210f35ad7",
+        "android_client_info": {
+          "package_name": "btp.psychosocialeducationapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "949291619069-gvs2jf5rud8v08a5pgqh2bqvch6hi5od.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "btp.psychosocialeducationapp",
+            "certificate_hash": "4083D0EF3CC9E620B40C847D3641A6CFA985921F"
+          }
+        },
+        {
+          "client_id": "949291619069-lancupo2j9qlcp0nh95np71ukomc64r7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBeUzMKlu_FN5epy_D2GtUMBVCCok0gDzU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

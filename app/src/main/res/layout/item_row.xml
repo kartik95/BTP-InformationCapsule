@@ -13,7 +13,8 @@
         android:layout_gravity="center"
         android:layout_margin="10dp"
         app:cardCornerRadius="3dp"
-        app:cardElevation="7dp">
+        app:cardElevation="7dp"
+        android:clickable="true">
 
         <!--<TextView-->
         <!--android:id="@+id/cardTitle"-->
@@ -140,17 +141,52 @@
                 android:paddingRight="10dp"
                 android:textSize="12dp" />
 
-            <ImageButton
-                android:id="@+id/save"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
-                android:layout_alignParentRight="true"
-                android:layout_below="@id/thumbnail"
-                android:layout_marginTop="10dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/bookmark"
-                android:background="@null"
-                android:clickable="true"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:orientation="vertical"
+                android:gravity="bottom"
+                android:layout_below="@+id/date">
+
+                <View
+                    android:id="@+id/sep"
+                    android:layout_below="@+id/date"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="#888"
+
+                    />
+
+                <ToggleButton
+                    android:id="@+id/save"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/sep"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:textOff="SAVE"
+                    android:textOn="SAVED"
+                    android:gravity="center"
+                    android:textStyle="bold"
+                    android:textSize="12dp"
+                    android:background="@null"
+                    android:clickable="true"/>
+            </LinearLayout>
+
+            <!--<ImageButton-->
+                <!--android:id="@+id/save"-->
+                <!--android:layout_width="50dp"-->
+                <!--android:layout_height="30dp"-->
+                <!--android:layout_alignParentRight="true"-->
+                <!--android:layout_below="@id/thumbnail"-->
+                <!--android:layout_marginTop="10dp"-->
+                <!--android:scaleType="centerCrop"-->
+                <!--android:src="@drawable/bookmark"-->
+                <!--android:background="@null"-->
+                <!--android:clickable="true"/>-->
             <!--<ImageView-->
             <!--android:id="@+id/overflow"-->
             <!--android:layout_width="@dimen/ic_album_overflow_width"-->

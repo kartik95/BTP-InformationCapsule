@@ -2060,9 +2060,30 @@
                     "startLine": 306,
                     "startColumn": 4,
                     "startOffset": 22125,
-                    "endLine": 308,
+                    "endLine": 307,
+                    "endColumn": 8,
+                    "endOffset": 22250
+                },
+                "from": {
+                    "file": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appinvite/10.2.0/res/values-v21/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 0,
+                        "startOffset": 172,
+                        "endLine": 5,
+                        "endColumn": 8,
+                        "endOffset": 297
+                    }
+                }
+            },
+            {
+                "to": {
+                    "startLine": 308,
+                    "startColumn": 4,
+                    "startOffset": 22255,
+                    "endLine": 310,
                     "endColumn": 12,
-                    "endOffset": 22295
+                    "endOffset": 22425
                 },
                 "from": {
                     "file": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/values-v21/values-v21.xml",
@@ -2078,12 +2099,12 @@
             },
             {
                 "to": {
-                    "startLine": 309,
+                    "startLine": 311,
                     "startColumn": 4,
-                    "startOffset": 22300,
-                    "endLine": 313,
+                    "startOffset": 22430,
+                    "endLine": 315,
                     "endColumn": 12,
-                    "endOffset": 22636
+                    "endOffset": 22766
                 },
                 "from": {
                     "file": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/values-v21/values-v21.xml",
@@ -2099,12 +2120,12 @@
             },
             {
                 "to": {
-                    "startLine": 314,
+                    "startLine": 316,
                     "startColumn": 4,
-                    "startOffset": 22641,
-                    "endLine": 316,
+                    "startOffset": 22771,
+                    "endLine": 318,
                     "endColumn": 12,
-                    "endOffset": 22834
+                    "endOffset": 22964
                 },
                 "from": {
                     "file": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/design/25.1.1/res/values-v21/values-v21.xml",
