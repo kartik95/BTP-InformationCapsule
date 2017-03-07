@@ -64,6 +64,10 @@
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/layout/content_edit.xml"
     },
     {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/layout/activity_favorites.xml",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/layout/activity_favorites.xml"
+    },
+    {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/layout/notification_template_lines_media.xml",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/layout/notification_template_lines_media.xml"
     },
@@ -166,6 +170,10 @@
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/layout/place_autocomplete_item_powered_by_google.xml",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-places/10.2.0/res/layout/place_autocomplete_item_powered_by_google.xml"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/layout/content_favorites.xml",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/layout/content_favorites.xml"
     },
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/layout/abc_list_menu_item_checkbox.xml",

@@ -62,5 +62,8 @@
     <string name="action_search">Search</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="logout">Logout</string>
+    <string name="backdrop_title">LATEST NEWS</string>
+    <string name="backdrop_subtitle">Top 20 newsfeeds</string>
+    <string name="title_activity_favorites">Favorites</string>
 
 </resources>

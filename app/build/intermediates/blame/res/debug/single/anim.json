@@ -48,8 +48,16 @@
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/design/25.1.1/res/anim/design_snackbar_in.xml"
     },
     {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/anim/fab_open.xml",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/anim/fab_open.xml"
+    },
+    {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/anim/abc_slide_out_top.xml",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/anim/fab_close.xml",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/anim/fab_close.xml"
     },
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_out.xml",
@@ -58,6 +66,14 @@
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/anim/abc_slide_out_bottom.xml",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/anim/rotate_forward.xml",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/anim/rotate_forward.xml"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/anim/rotate_backward.xml",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/anim/rotate_backward.xml"
     },
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/anim/design_fab_out.xml",

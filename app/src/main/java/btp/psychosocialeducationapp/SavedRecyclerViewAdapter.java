@@ -77,7 +77,8 @@ public class SavedRecyclerViewAdapter extends RecyclerView.Adapter<SavedViewHold
             savedNewsFeed = savedNewsFeeds.get(key);
 
 //        final NewsFeed savedNewsFeed = savedNewsFeeds.get(Integer.toString(position));
-            Log.d("Saved News Feed : ", savedNewsFeeds.toString());
+//            Log.d("Saved News Feed : ", savedNewsFeeds.toString());
+
             mainHolder.cardView.setTag(position);
             mainHolder.title.setText(savedNewsFeed.getTitle());
             mainHolder.date.setText(savedNewsFeed.getDate());

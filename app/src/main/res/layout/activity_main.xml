@@ -68,6 +68,7 @@
 
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fab="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
@@ -84,29 +85,133 @@
             android:layout_width="fill_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|enterAlways"
+
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        <!--app:layout_scrollFlags="scroll|enterAlways"-->
         <!-- Tab Layout for creating tabs -->
-        <android.support.design.widget.TabLayout
-            android:id="@+id/tabLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+        <!--<android.support.design.widget.TabLayout-->
+            <!--android:id="@+id/tabLayout"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content" />-->
     </android.support.design.widget.AppBarLayout>
     <!-- Helps handing the Fragments for each Tab -->
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewPager"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    <!--<android.support.v4.view.ViewPager-->
+        <!--android:id="@+id/viewPager"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="fill_parent"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior" />-->
+
+    <include layout="@layout/content_main" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
         app:backgroundTint="#008000"
         app:elevation="6dp"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/call" />
+        android:layout_margin="16dp"
+        android:layout_gravity="end|bottom"
+        app:srcCompat="@drawable/call"
+        android:clickable="true"/>
+
+    <View
+        android:id="@+id/dummy"
+        android:layout_width="1dp"
+        android:layout_height="16dp"
+        app:layout_anchor="@id/fab"
+        app:layout_anchorGravity="top|right|end" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        app:backgroundTint="@color/accent_dark"
+        app:elevation="6dp"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/fav"
+        app:layout_anchor="@id/dummy"
+        app:layout_anchorGravity="top|right|end"
+        android:clickable="true"/>
+
+    <!--<FrameLayout-->
+        <!--android:id="@+id/frame_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:background="@color/black_overlay">-->
+
+        <!--<com.getbase.floatingactionbutton.FloatingActionsMenu-->
+            <!--android:id="@+id/fab_menu"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="bottom|end"-->
+            <!--fab:fab_addButtonColorNormal="@color/accent"-->
+            <!--fab:fab_addButtonColorPressed="@color/accent_dark"-->
+            <!--fab:fab_addButtonPlusIconColor="@color/white"-->
+            <!--fab:fab_addButtonStrokeVisible="false"-->
+            <!--fab:fab_labelStyle="@style/menu_labels_style"-->
+            <!--fab:fab_labelsPosition="left">-->
+
+            <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
+                <!--android:id="@+id/fab_event"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--fab:fab_colorNormal="@color/accent"-->
+                <!--fab:fab_colorPressed="@color/accent_dark"-->
+                <!--fab:fab_plusIconColor="@color/white"-->
+                <!--fab:fab_icon="@drawable/call"-->
+                <!--fab:fab_size="mini"-->
+                <!--fab:fab_title="Favorites" />-->
+
+            <!--<com.getbase.floatingactionbutton.FloatingActionButton-->
+                <!--android:id="@+id/fab_photo"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--fab:fab_colorNormal="@color/accent"-->
+                <!--fab:fab_colorPressed="@color/accent_dark"-->
+                <!--fab:fab_plusIconColor="@color/white"-->
+                <!--fab:fab_icon="@drawable/call"-->
+                <!--fab:fab_size="mini"-->
+                <!--fab:fab_title="Call for Help" />-->
+
+        <!--</com.getbase.floatingactionbutton.FloatingActionsMenu>-->
+    <!--</FrameLayout>-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="160dp"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_marginRight="@dimen/fab_margin"-->
+        <!--android:visibility="invisible"-->
+        <!--app:backgroundTint="#ffe761"-->
+        <!--app:elevation="6dp"-->
+        <!--app:pressedTranslationZ="12dp"-->
+        <!--android:src="@drawable/call" />-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="90dp"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--android:layout_marginRight="@dimen/fab_margin"-->
+        <!--android:visibility="invisible"-->
+        <!--app:elevation="6dp"-->
+        <!--app:backgroundTint="#008000"-->
+        <!--app:pressedTranslationZ="12dp"-->
+        <!--android:src="@drawable/call" />-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--app:elevation="6dp"-->
+        <!--app:backgroundTint="@color/accent_dark"-->
+        <!--app:pressedTranslationZ="12dp"-->
+        <!--android:layout_margin="@dimen/fab_margin"-->
+        <!--android:src="@drawable/call" />-->
 
 </android.support.design.widget.CoordinatorLayout>

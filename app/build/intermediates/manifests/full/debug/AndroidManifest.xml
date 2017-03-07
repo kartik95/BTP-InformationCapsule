@@ -28,7 +28,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:launchMode="singleTop"
+        android:launchMode="standard"
         android:supportsRtl="true"
         android:theme="@style/MyMaterialTheme" >
 
@@ -64,6 +64,10 @@
         <activity
             android:name="btp.psychosocialeducationapp.EditActivity"
             android:label="@string/title_activity_edit"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name="btp.psychosocialeducationapp.Favorites"
+            android:label="@string/title_activity_favorites"
             android:theme="@style/MyMaterialTheme" />
         <!-- Include the AdActivity and InAppPurchaseActivity configChanges and themes. -->
         <activity

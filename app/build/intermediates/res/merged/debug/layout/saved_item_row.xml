@@ -168,10 +168,11 @@
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:text="REMOVE"
+                    android:textColor="#fff"
                     android:gravity="center"
                     android:textStyle="bold"
                     android:textSize="12dp"
-                    android:background="@null"
+                    android:background="#ff0000"
                     android:clickable="true"/>
             </LinearLayout>
 
