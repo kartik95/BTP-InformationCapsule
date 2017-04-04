@@ -148,12 +148,12 @@
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/drawable/abc_cab_background_top_material.xml"
     },
     {
-        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_skip_prev.xml",
-        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/10.2.0/res/drawable/cast_ic_notification_skip_prev.xml"
-    },
-    {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/btp1.jpg",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/drawable/btp1.jpg"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_skip_prev.xml",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/10.2.0/res/drawable/cast_ic_notification_skip_prev.xml"
     },
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_rewind10.xml",
@@ -456,12 +456,12 @@
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/10.2.0/res/drawable/cast_ic_expanded_controller_rewind30.xml"
     },
     {
-        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/call.jpg",
-        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/drawable/call.jpg"
-    },
-    {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/abc_ic_voice_search_api_material.xml",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/drawable/abc_ic_voice_search_api_material.xml"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/call.jpg",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/drawable/call.jpg"
     },
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/cast_ic_notification_forward.xml",
@@ -472,12 +472,12 @@
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/design/25.1.1/res/drawable/navigation_empty_icon.xml"
     },
     {
-        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/fav.png",
-        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/drawable/fav.png"
-    },
-    {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/abc_ic_arrow_drop_right_black_24dp.xml",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/drawable/abc_ic_arrow_drop_right_black_24dp.xml"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/fav.png",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/src/main/res/drawable/fav.png"
     },
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable/common_google_signin_btn_text_dark_focused.xml",

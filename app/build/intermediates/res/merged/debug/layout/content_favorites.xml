@@ -27,6 +27,7 @@
         android:textSize="35dp"
         android:text="NO FAVORITES"
         android:visibility="invisible"
+        android:textColor="#333"
         android:textStyle="bold"/>
 
     <TextView
@@ -37,6 +38,7 @@
         android:layout_height="wrap_content"
         android:textSize="12dp"
         android:layout_marginTop="10dp"
+        android:textColor="#333"
         android:gravity="center_horizontal"
         android:visibility="invisible"
         android:text="Add your favorites by selecting newsfeeds from the home page" />

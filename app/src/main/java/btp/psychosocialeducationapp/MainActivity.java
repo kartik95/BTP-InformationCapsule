@@ -217,18 +217,23 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         SharedPreferences prefs = this.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE);
         Set<String> keysSet = prefs.getStringSet("mapKeys", null);
         if (keysSet != null) {
+            Log.d("Map Keys : ", keysSet.toString());
             savedNewsFeeds = new HashMap<>();
             List<String> mapKeys = new ArrayList<>(keysSet);
             Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new MainActivity.UriDeserializer()).create();
             for (int i=0; i<mapKeys.size(); i++){
                 String key = mapKeys.get(i);
-                Log.d("Key : ", key);
+//                Log.d("Key : ", key);
                 String json = prefs.getString(key, "");
-                Log.d("Json : ", json);
+//                Log.d("Json : ", json);
                 NewsFeed newsFeed = gson.fromJson(json, NewsFeed.class);
                 savedNewsFeeds.put(key, newsFeed);
             }
         }
+
+//        SharedPreferences.Editor editor = this.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE).edit();
+//        editor.clear();
+//        editor.commit();
 
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);

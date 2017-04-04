@@ -320,12 +320,12 @@
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/25.1.1/res/drawable-mdpi-v4/notification_bg_normal.9.png"
     },
     {
-        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/places_ic_search.png",
-        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-places/10.2.0/res/drawable-mdpi-v4/places_ic_search.png"
-    },
-    {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/quantum_ic_stop_white_24.png",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-cast-framework/10.2.0/res/drawable-mdpi-v4/quantum_ic_stop_white_24.png"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/places_ic_search.png",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-places/10.2.0/res/drawable-mdpi-v4/places_ic_search.png"
     },
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable-mdpi-v4/quantum_ic_forward_10_white_24.png",

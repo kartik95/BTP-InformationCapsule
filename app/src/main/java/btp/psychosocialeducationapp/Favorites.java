@@ -66,7 +66,7 @@ public class Favorites extends AppCompatActivity {
         SharedPreferences prefs = this.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE);
         Set<String> keysSet = prefs.getStringSet("mapKeys", null);
 
-        if (keysSet != null) {
+        if (keysSet != null && !keysSet.isEmpty()) {
 
             recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
             recyclerView.setHasFixedSize(true);
@@ -102,6 +102,7 @@ public class Favorites extends AppCompatActivity {
 //                    finish();
 //                    return true;
 //                }
+                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 return true;
             default:

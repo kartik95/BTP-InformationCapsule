@@ -2,6 +2,7 @@ package btp.psychosocialeducationapp;
 
 import android.content.Intent;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -10,8 +11,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import static btp.psychosocialeducationapp.R.id.fab;
 
 public class Individual extends AppCompatActivity {
+
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +28,15 @@ public class Individual extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        TextView title = (TextView)  findViewById(R.id.title);
+        TextView desc = (TextView) findViewById(R.id.desc);
+        ImageView image = (ImageView) findViewById(R.id.backdrop);
+
+        title.setText(getIntent().getStringExtra("title"));
+        desc.setText(getIntent().getStringExtra("desc"));
+//        image.setImageURI(Uri.parse(getIntent().getStringExtra("image")));
+
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

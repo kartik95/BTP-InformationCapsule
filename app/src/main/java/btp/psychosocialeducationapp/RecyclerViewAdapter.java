@@ -86,7 +86,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 
         final ViewHolder mainHolder = holder;
 
-        NewsFeed newsFeed = newsFeeds.get(position);
+        final NewsFeed newsFeed = newsFeeds.get(position);
         for (String key : savedNewsFeeds.keySet()){
             if (position == Integer.parseInt(key)) {
                 mainHolder.save.setChecked(true);
@@ -104,6 +104,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             public void onClick(View view) {
 
                 Intent intent = new Intent(view.getContext(), Individual.class);
+                intent.putExtra("title", newsFeeds.get(position).getTitle());
+                intent.putExtra("date", newsFeeds.get(position).getDate());
+                intent.putExtra("desc", newsFeeds.get(position).getDesc());
+                intent.putExtra("image", newsFeeds.get(position).getImageUri());
                 view.getContext().startActivity(intent);
             }
         });
@@ -112,6 +116,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             public void onClick(View view) {
 
                 Intent intent = new Intent(view.getContext(), Individual.class);
+                intent.putExtra("title", newsFeeds.get(position).getTitle());
+                intent.putExtra("date", newsFeeds.get(position).getDate());
+                intent.putExtra("desc", newsFeeds.get(position).getDesc());
+                intent.putExtra("image", newsFeeds.get(position).getImageUri());
                 view.getContext().startActivity(intent);
             }
         });

@@ -204,12 +204,12 @@
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/24.0.0/res/drawable-xhdpi-v4/ic_media_route_connecting_21_light.png"
     },
     {
-        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_media_route_connecting_12_light.png",
-        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/24.0.0/res/drawable-xhdpi-v4/ic_media_route_connecting_12_light.png"
-    },
-    {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_media_route_on_01_light.png",
         "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/24.0.0/res/drawable-xhdpi-v4/ic_media_route_on_01_light.png"
+    },
+    {
+        "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_media_route_connecting_12_light.png",
+        "source": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/mediarouter-v7/24.0.0/res/drawable-xhdpi-v4/ic_media_route_connecting_12_light.png"
     },
     {
         "merged": "/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/res/merged/debug/drawable-xhdpi-v4/ic_media_route_on_13_dark.png",
