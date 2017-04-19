@@ -3,6 +3,15 @@
 
     <item
         is-multidex="true"
+        jar="/home/gkartik/.gradle/caches/modules-2/files-2.1/com.squareup.okhttp/okhttp/2.7.2/20f6463eb19ac61960c5d91a094c2f4f0727dc2e/okhttp-2.7.2.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="20f6463eb19ac61960c5d91a094c2f4f0727dc2e">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-2.7.2_ee1715e3f7f0a4f89e43323e18a6f2f98b3b85f9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-plus/10.2.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -205,7 +214,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="80f1baa6a3fbff66a575e894cadb2b44c4f97120">
+        sha1="28855d5761231093a89f24d60bfe1ec5a57cb124">
         <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_e727bc072b4df6030d719223085f2606ac417560/classes.dex" />
     </item>
     <item
@@ -243,15 +252,6 @@
         revision="25.0.2"
         sha1="9d1d0e1270310e34e2d65afda2bc18605c14cd46">
         <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-tagmanager-api-10.2.0_c66462d122dee626dccd69fe4d60b64a650f8e30/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/opt/android-studio/gradle/m2repository/com/google/code/gson/gson/2.2.4/gson-2.2.4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="a60a5e993c98c864010053cb901b7eab25306568">
-        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.2.4_ee0179183cc12d87b762899f0e71bd373d3fee7f/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -313,7 +313,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="ca9fe96bcc14e2a7f4637c958083a885553fdc93">
+        sha1="f48608ca0fa99d194fc49c1a1a7e7247fb1beb6e">
         <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f2378fd2527aa7b051506f216f4381ee992e32c5/classes.dex" />
     </item>
     <item
@@ -372,6 +372,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/gkartik/.gradle/caches/modules-2/files-2.1/com.google.code.gson/gson/2.3.1/ecb6e1f8e4b0e84c4b886c2f14a1500caf309757/gson-2.3.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="ecb6e1f8e4b0e84c4b886c2f14a1500caf309757">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/gson-2.3.1_482bbac02df75ec72cabf9de749cda8919493f90/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/support-compat/25.1.1/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -405,6 +414,15 @@
         revision="25.0.2"
         sha1="15b049fedbd8e3926bf99d9e45dfc9b2a1043bb9">
         <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-transition-25.1.1_21472ba6db697b5230e140739089cb51d6140205/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/.gradle/caches/modules-2/files-2.1/com.squareup.retrofit/retrofit/1.9.0/a681c044244d9fc375198588297a39ba78028423/retrofit-1.9.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="a681c044244d9fc375198588297a39ba78028423">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/retrofit-1.9.0_c862d3a4313378bfdf8dc2f73b285935d26d5347/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -462,6 +480,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/libs/opencsv-3.9.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="01e0df53c5ef2431f072d1da3fd31bea9da5b529">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/2/opencsv-3.9_016bc466f60d950f2b90e1a7f037f6cd9a90664c/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/exploded-aar/com.android.support/palette-v7/24.0.0/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -495,6 +522,15 @@
         revision="25.0.2"
         sha1="b831d3902674d096189451d46fce219e2c2904b7">
         <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.google.android.gms-play-services-auth-10.2.0_8a3688c9b48a4654bd3b018d03a45fe2705367dc/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/gkartik/.gradle/caches/modules-2/files-2.1/com.squareup.okio/okio/1.6.0/98476622f10715998eacf9240d6b479f12c66143/okio-1.6.0.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.2"
+        sha1="98476622f10715998eacf9240d6b479f12c66143">
+        <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.6.0_e662fddd6451cf2817310cf41a50d4dc42e37508/classes.dex" />
     </item>
     <item
         is-multidex="true"

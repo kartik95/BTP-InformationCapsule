@@ -949,8 +949,8 @@
     <string name="abc_toolbar_collapse_description">Collapse</string>
     <string name="accept">Accept</string>
     <string name="action_search">Search</string>
-    <string name="action_settings">Settings</string>
-    <string name="app_name">Information Capsule</string>
+    <string name="action_settings">सेटिंग्स</string>
+    <string name="app_name">सूचना कैप्सूल</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
     <string name="auth_code_fmt">Auth Code: %s</string>
     <string name="backdrop_subtitle">Top 20 newsfeeds</string>
@@ -1033,7 +1033,7 @@
     <string name="desc_sign_in_activity">Signing in, signing out, and revoking access.</string>
     <string name="desc_sign_in_activity_scopes">Signing in, signing out, and revoking access with Google Drive permissions.</string>
     <string name="disconnect">Disconnect</string>
-    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_profile">व्यक्तिगत जानकारी</string>
     <string name="error_null_person">
         Error: Plus.PeopleApi.getCurrentPerson returned null. Ensure that the Google+ API is
         enabled for your project, you have a properly configured google-services.json file
@@ -1047,7 +1047,7 @@
     <string name="id_token_fmt">ID Token: %s</string>
     <string name="latest">Latest</string>
     <string name="loading">Loading…</string>
-    <string name="logout">Logout</string>
+    <string name="logout">लोग आउट</string>
     <string name="mr_button_content_description">Cast button</string>
     <string name="mr_chooser_searching">Finding devices</string>
     <string name="mr_chooser_title">Cast to</string>
@@ -1092,8 +1092,8 @@
     <string name="tagmanager_preview_dialog_button">Continue</string>
     <string name="tagmanager_preview_dialog_message">Preview mode updated.</string>
     <string name="tagmanager_preview_dialog_title">Preview</string>
-    <string name="title_activity_edit">EditActivity</string>
-    <string name="title_activity_favorites">Favorites</string>
+    <string name="title_activity_edit">व्यक्तिगत जानकारी संपादित करें</string>
+    <string name="title_activity_favorites">पसंदीदा लेख</string>
     <string name="title_activity_individual">Individual</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_text">Google Sign-In\nQuickstart</string>

@@ -36,6 +36,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class SavedRecyclerViewAdapter extends RecyclerView.Adapter<SavedViewHolder> {
@@ -44,6 +45,7 @@ public class SavedRecyclerViewAdapter extends RecyclerView.Adapter<SavedViewHold
     private HashMap<String, NewsFeed> savedNewsFeeds;
     private ArrayList<NewsFeed> feeds;
     private ArrayList<String> feedPositions;
+    private DBSingleton dbSingleton;
 
     public SavedRecyclerViewAdapter(Context context, HashMap<String, NewsFeed> savedNewsFeeds) {
         this.context = context;
@@ -58,6 +60,7 @@ public class SavedRecyclerViewAdapter extends RecyclerView.Adapter<SavedViewHold
             feeds.add(savedNewsFeeds.get(key));
             feedPositions.add(key);
         }
+        this.dbSingleton = DBSingleton.getInstance();
     }
 
     public int getItemCount() {
@@ -139,6 +142,24 @@ public class SavedRecyclerViewAdapter extends RecyclerView.Adapter<SavedViewHold
             public void onClick(View v) {
 //                savedNewsFeeds.remove(Integer.toString(position));
                 String removedFeedPosition = feedPositions.get(position);
+                NewsFeed newsFeed = savedNewsFeeds.get(removedFeedPosition);
+
+                String logString = newsFeed.getTitle() + "(" + position + ") Article was unsaved.";
+                if(dbSingleton.insertLog(new LogData(context.getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                        context.getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+                    Toast.makeText(context, "Log entered.", Toast.LENGTH_SHORT).show();
+                }
+
+//                List<LogData> receivedLogs = dbSingleton.getAllLogs();
+//                for (int i=0; i<receivedLogs.size(); i++) {
+//                    Log.d("Received Log : ", "{" + receivedLogs.get(i).getUserId() + ", " +
+//                            receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
+//                }
+                LogData receivedLog = dbSingleton.getLastLog();
+                Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                        receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
+
+
 //                NewsFeed removedNewsFeed = feeds.get(position);
                 feeds.remove(position);
                 feedPositions.remove(position);

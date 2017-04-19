@@ -21,12 +21,14 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
@@ -37,6 +39,15 @@ import com.google.android.gms.plus.model.people.Person;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.List;
+
+import btp.psychosocialeducationapp.API.APIClient;
+import btp.psychosocialeducationapp.API.LoginResponse;
+import btp.psychosocialeducationapp.API.UserAPI;
+import btp.psychosocialeducationapp.API.UserInfo;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
 
 
 public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener {
@@ -48,14 +59,20 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
 //    private Button signOutButton;
 //    private Button disconnectButton;
 //    private LinearLayout signOutView;
+    private DBSingleton dbSingleton;
     private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
     private ImageView imgProfilePic;
+    private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 9000;
+    private APIClient apiClient;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
+        apiClient = new APIClient();
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -63,13 +80,13 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
                 .build();
 
         // Build a GoogleApiClient with access to the Google Sign-In API and the
-// options specified by gso.
+        // options specified by gso.
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
                 .enableAutoManage(getActivity() /* FragmentActivity */, this /* OnConnectionFailedListener */)
                 .addApi(Auth.GOOGLE_SIGN_IN_API,gso)
                 .build();
 
-
+        dbSingleton = DBSingleton.getInstance();
     }
 
 
@@ -84,7 +101,8 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
             Log.d(TAG, "Got cached sign-in");
             GoogleSignInResult result = opr.get();
             handleSignInResult(result);
-        } else {
+        }
+        else {
             // If the user has not previously signed in on this device or the sign-in has expired,
             // this asynchronous branch will attempt to sign in the user silently.  Cross-device
             // single sign-on will occur in this branch.
@@ -152,6 +170,23 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
     }
 
 
+//    private boolean checkPlayServices() {
+//        GoogleApiAvailability apiAvailability = GoogleApiAvailability.getInstance();
+//        int resultCode = apiAvailability.isGooglePlayServicesAvailable(getActivity());
+//        if (resultCode != ConnectionResult.SUCCESS) {
+//            if (apiAvailability.isUserResolvableError(resultCode)) {
+//                apiAvailability.getErrorDialog(getActivity(), resultCode, PLAY_SERVICES_RESOLUTION_REQUEST)
+//                        .show();
+//            } else {
+////                Log.i(TAG, "This device is not supported.");
+//                getActivity().finish();
+//            }
+//            return false;
+//        }
+//        return true;
+//    }
+
+
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
@@ -169,23 +204,38 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
 
                     // update profile frame with new info about Google Account
                     // profile
-                    GoogleSignInAccount acct = result.getSignInAccount();
-                    String personName = acct.getDisplayName();
-                    String email = acct.getEmail();
-                    Uri personPhotoUrl = acct.getPhotoUrl();
+//                    boolean alreadySignedIn = false;
+//                    SharedPreferences prefs = this.getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE);
+//                    Log.d("SP : ", prefs.getAll().toString());
 
-                    SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit();
-                    editor.putString("name", personName);
-                    editor.putString("email", email);
-                    editor.putString("url", String.valueOf(personPhotoUrl));
-                    editor.commit();
+//                    if (prefs.getAll().size() >= 4) {
+////                        alreadySignedIn = true;
+//                        updateUI(true, true);
+//                    }
+                    if(getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE)
+                            .getString("alreadySignedIn", "-1").equals("1")) {
+                        updateUI(true, true);
+                    }
+                    else {
+                        GoogleSignInAccount acct = result.getSignInAccount();
+                        String personName = acct.getDisplayName();
+                        String email = acct.getEmail();
+                        Uri personPhotoUrl = acct.getPhotoUrl();
+                        String personId = acct.getId();
 
-                    updateUI(true);
-//                    updateProfile(true);
+                        SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit();
+                        editor.putString("id", personId);
+                        editor.putString("name", personName);
+                        editor.putString("email", email);
+                        editor.putString("url", String.valueOf(personPhotoUrl));
+                        editor.commit();
+
+                        updateUI(true, false);
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                updateUI(false);
+                updateUI(false, false);
             }
 
             // Signed in successfully, show authenticated UI.
@@ -199,19 +249,56 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
 //            updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
-            updateUI(false);
+            updateUI(false, false);
         }
     }
 
 
-    private void updateUI(boolean signedIn) {
-        if (signedIn) {
+    private void updateUI(boolean signedIn, boolean alreadySignedIn) {
+        if (signedIn && !alreadySignedIn) {
 
-//            signInButton.setVisibility(View.GONE);
-//            signOutButton.setVisibility(View.VISIBLE);
+            String logString = "Signed in successfully.";
+            if(dbSingleton.insertLog(new LogData(getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                    getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+                Toast.makeText(getContext(), "Log entered.", Toast.LENGTH_SHORT).show();
+            }
+            Log.d("Status : ", "Signed in successfully.");
+
+//            List<LogData> receivedLogs = dbSingleton.getAllLogs();
+//            for (int i=0; i<receivedLogs.size(); i++) {
+//                Log.d("Received Log : ", "{" + receivedLogs.get(i).getUserId() + ", " +
+//                        receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
+//            }
+            LogData receivedLog = dbSingleton.getLastLog();
+            Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                    receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
+
+            getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit().putString("alreadySignedIn", "1").apply();
             getActivity().startActivity(new Intent(getActivity().getApplicationContext(), EditActivity.class));//.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
             getActivity().finish();
-        } else {
+        }
+        else if(signedIn && alreadySignedIn){
+            String logString = "Signed in successfully.";
+            if(dbSingleton.insertLog(new LogData(getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                    getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+                Toast.makeText(getContext(), "Log entered.", Toast.LENGTH_SHORT).show();
+            }
+            Log.d("Status : ", "Signed in successfully.");
+
+//            List<LogData> receivedLogs = dbSingleton.getAllLogs();
+//            for (int i=0; i<receivedLogs.size(); i++) {
+//                Log.d("Received Log : ", "{" + receivedLogs.get(i).getUserId() + ", " +
+//                        receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
+//            }
+            LogData receivedLog = dbSingleton.getLastLog();
+            Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                    receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
+
+            getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit().putString("alreadySignedIn", "1").apply();
+            getActivity().startActivity(new Intent(getActivity().getApplicationContext(), MainActivity.class));//.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+            getActivity().finish();
+        }
+        else {
             mStatusTextView.setText(R.string.signed_out);
             Bitmap icon = BitmapFactory.decodeResource(getContext().getResources(),R.drawable.userdefault);
             imgProfilePic.setImageBitmap(ImageHelper.getRoundedCornerBitmap(getContext(),icon, 200, 200, 200, false, false, false, false));
@@ -246,10 +333,5 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
         }
 
     }
-
-    /**
-     * Background Async task to load user profile picture from url
-     * */
-
 }
 

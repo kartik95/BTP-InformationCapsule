@@ -21,10 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.ToggleButton;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -42,34 +39,20 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import static java.security.AccessController.getContext;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
-//    private ArrayList<String> arrayList;
-//    private ArrayList<String> titles;
-//    private ArrayList<String> dates;
-//    private ArrayList<Uri> imageUris;
-//    private ArrayList<String> descs;
+
     private ArrayList<NewsFeed> newsFeeds;
     private HashMap<String, NewsFeed> savedNewsFeeds;
     private Context context;
     private int flag=0;
-//    AdapterView.OnItemClickListener onItemClickListener = new AdapterView.OnItemClickListener() {
-//        @Override
-
-//        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//            Intent intent = new Intent(MainActivity.class, Individual.class);
-//        }
-//    };
+    private DBSingleton dbSingleton;
 
     public RecyclerViewAdapter(Context context, ArrayList<NewsFeed> newsFeeds, HashMap<String, NewsFeed> savedNewsFeeds) {
         this.context = context;
-//        this.arrayList = arrayList;
-//        this.titles = titles;
-//        this.dates = dates;
-//        this.imageUris = imageUris;
         this.newsFeeds = newsFeeds;
         this.savedNewsFeeds = savedNewsFeeds;
+        this.dbSingleton = DBSingleton.getInstance();
     }
 
 
@@ -129,96 +112,77 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
                     NewsFeed newsFeed = newsFeeds.get(position);
-//                    String title = newsFeed.getTitle();
-//                    String date = newsFeed.getDate();
-//                    Uri imageUri = newsFeed.getImageUri();
-//                    String desc = newsFeed.getDesc();
-
                     mainHolder.save.setTextColor(Color.WHITE);
                     mainHolder.save.setBackgroundColor(Color.BLUE);
-//                    markAsFavourite(title, date, imageUri, desc, position);
                     markAsFavourite(newsFeed, position);
                 }
                 else {
+                    NewsFeed newsFeed = newsFeeds.get(position);
                     mainHolder.save.setTextColor(Color.BLACK);
                     mainHolder.save.setBackgroundColor(Color.WHITE);
-                    removeFromFavourites(position);
+                    removeFromFavourites(newsFeed, position);
                 }
             }
         });
-//        mainHolder.save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(v.isSelected()) {
-//                    String title = titles.get(position);
-//                    String date = dates.get(position);
-//                    Uri imageUri = imageUris.get(position);
-//
-//                    markAsFavourite(title, date, imageUri);
-//                    mainHolder.save.setTextColor();
-//                    mainHolder.save.back
-//                } else {
-//                    removeFromFavourites(position);
-//                }
-//            }
-//        });
     }
 
-
-//    private void markAsFavourite(String title, String date, Uri imageUri, String desc, int position){
-//
-//        savedNewsFeeds.put(Integer.toString(position), new NewsFeed(title, date, imageUri, desc));
-//        Log.d("Saved", "Marked as favorite");
-//        resetSavedNewsFeeds(savedNewsFeeds);
-//    }
 
     private void markAsFavourite(NewsFeed newsFeed, Integer position){
 
+        String logString = newsFeed.getTitle() + "(" + position + ") Article was saved.";
+        if(dbSingleton.insertLog(new LogData(context.getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                context.getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+            Toast.makeText(context, "Log entered.", Toast.LENGTH_SHORT).show();
+        }
+
+//        List<LogData> receivedLogs = dbSingleton.getAllLogs();
+//        for (int i=0; i<receivedLogs.size(); i++) {
+//            Log.d("Received Log : ", "{" + receivedLogs.get(i).getUserId() + ", " +
+//                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
+//        }
+        LogData receivedLog = dbSingleton.getLastLog();
+        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
+
         savedNewsFeeds.put(Integer.toString(position), newsFeed);
-//        Log.d("Saved", "Marked as favorite");
         resetSavedNewsFeeds(savedNewsFeeds);
-//        notifyDataSetChanged();
-//        Fragment frag = ((Activity) context).getFragmentManager().findFragmentById(R.id.frag);
     }
 
-    private void removeFromFavourites(int position){
+    private void removeFromFavourites(NewsFeed newsFeed, int position){
+
+        String logString = newsFeed.getTitle() + "(" + position + ") Article was unsaved.";
+        if(dbSingleton.insertLog(new LogData(context.getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                context.getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+            Toast.makeText(context, "Log entered.", Toast.LENGTH_SHORT).show();
+        }
+
+//        List<LogData> receivedLogs = dbSingleton.getAllLogs();
+//        for (int i=0; i<receivedLogs.size(); i++) {
+//            Log.d("Received Log : ", "{" + receivedLogs.get(i).getUserId() + ", " +
+//                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
+//        }
+        LogData receivedLog = dbSingleton.getLastLog();
+        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
 
         savedNewsFeeds.remove(Integer.toString(position));
-//        Log.d("Unsaved", "Removed as favorite");
         resetSavedNewsFeeds(savedNewsFeeds);
-//        notifyDataSetChanged();
-//        SharedPreferences.Editor editor = context.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE).edit();
-//        editor.clear();
-//        editor.commit();
-//
-//        Gson gson = new Gson();
-//        String json = gson.toJson(savedNewsFeeds);
-//
-//        editor.putString("savedNewsFeeds", json);
-//        editor.commit();
     }
 
 
     private void resetSavedNewsFeeds(HashMap<String, NewsFeed> savedNewsFeeds) {
 
-        Log.d("SavedNewsFeeds : ", savedNewsFeeds.toString());
         SharedPreferences.Editor editor = context.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE).edit();
         editor.clear();
-//        editor.commit();
 
         Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new UriSerializer()).create();
         List<String> mapKeys = new ArrayList<>(savedNewsFeeds.keySet());
         Set<String> keysSet = new HashSet<>(mapKeys);
         editor.putStringSet("mapKeys", keysSet);
         for(int i=0; i<savedNewsFeeds.size(); i++){
-//            Log.d("Obtained Value : ", savedNewsFeeds.get(i).toString());
             String value = gson.toJson(savedNewsFeeds.get(mapKeys.get(i)));
-            Log.d("Saved Value : ", value);
             editor.putString(mapKeys.get(i), value);
         }
-//        String json = gson.toJson(savedNewsFeeds);
-
-//        editor.putString("savedNewsFeeds", json);
         editor.apply();
         editor.commit();
     }

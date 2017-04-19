@@ -1,72 +1,20 @@
 package btp.psychosocialeducationapp;
 
-
-//import android.os.Bundle;
-//import android.support.v4.app.Fragment;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//
-//
-///**
-// * A simple {@link Fragment} subclass.
-// */
-//public class LatestFragment extends Fragment {
-//
-//
-//    public LatestFragment() {
-//        // Required empty public constructor
-//    }
-//
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_latest2, container, false);
-//    }
-//
-//}
-
-//import android.os.Bundle;
-//import android.support.v4.app.Fragment;
-//import android.view.LayoutInflater;
-//import android.view.View;
-//import android.view.ViewGroup;
-//
-//
-//public class LatestFragment extends Fragment{
-//
-//    public LatestFragment() {
-//        // Required empty public constructor
-//    }
-//
-//    @Override
-//    public void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//    }
-//
-//    @Override
-//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-//                             Bundle savedInstanceState) {
-//        // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_latest, container, false);
-//    }
-//
-//}
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.os.EnvironmentCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
 import android.util.StringBuilderPrinter;
 import android.util.TypedValue;
@@ -84,6 +32,9 @@ import com.google.gson.JsonPrimitive;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.net.URI;
@@ -142,26 +93,58 @@ public class LatestFragment extends Fragment {
         }
     }
 
+
     private ArrayList getTitles() {
         ArrayList<String> titles = new ArrayList<>();
-        titles.add("What is Schizophrenia?");
-        titles.add("Symptoms of Schizophrenia");
-        titles.add("Causes of Schizophrenia");
-        titles.add("Therapy of Schizophrenia");
-        titles.add("Suggestions regarding Schizophrenia");
-        titles.add("Incidents of Schizophrenia");
+        titles.clear();
+//        titles.add("What is Schizophrenia?");
+//        titles.add("Symptoms of Schizophrenia");
+//        titles.add("Causes of Schizophrenia");
+//        titles.add("Therapy of Schizophrenia");
+//        titles.add("Suggestions regarding Schizophrenia");
+//        titles.add("Incidents of Schizophrenia");
+        for(int i=0; i<6; i++){
+            try {
+                InputStream is = getResources().getAssets().open("Title" + Integer.toString(i) + ".txt");
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+
+                String title = new String(buffer);
+                titles.add(title);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.d("Titles : ", titles.toString());
         return titles;
     }
 
 
     private ArrayList getDescriptions() {
         ArrayList<String> descs = new ArrayList<>();
-        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
-        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
-        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.");
-        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
-        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
-        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.");
+        descs.clear();
+//        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
+//        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
+//        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.");
+//        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
+//        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
+//        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.")
+        try{
+            for(int i=0; i<6; i++) {
+                InputStream is = getResources().getAssets().open("Desc" + Integer.toString(i) + ".txt");
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+
+                String text = new String(buffer);
+                descs.add(text);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return descs;
     }
 
@@ -205,29 +188,14 @@ public class LatestFragment extends Fragment {
         recyclerView = (RecyclerView) view
                 .findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-//        recyclerView
-//                .setLayoutManager(new LinearLayoutManager(getActivity()));//Linear Items
 
-
-//        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-//        recyclerView.setAdapter(adapter);
-//        ArrayList<String> arrayList = new ArrayList<>();
-//        for (int i = 0; i < 20; i++) {
-//
-//            arrayList.add(title+" Items " + i);//Adding items to recycler view
-//        }
 
-//        ArrayList<String> titles = getTitles();
-//        ArrayList<String> dates = getDates();
-//        ArrayList<Uri> imageUris = getImageURIs();
-//        ArrayList<String> descs = getDescriptions();
         ArrayList<NewsFeed> newsFeeds = getNewsFeeds(getTitles(), getDates(), getImageURIs(), getDescriptions());
         if (savedNewsFeeds == null) {savedNewsFeeds = new HashMap<>();}
-//        RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), arrayList);
         RecyclerViewAdapter adapter = new RecyclerViewAdapter(getActivity(), newsFeeds, savedNewsFeeds);
         recyclerView.setAdapter(adapter);// set adapter on recyclerview
 

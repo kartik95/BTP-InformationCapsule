@@ -20,6 +20,7 @@ import android.util.TypedValue;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.vision.text.Text;
 import com.google.gson.Gson;
@@ -31,16 +32,18 @@ import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
 public class Favorites extends AppCompatActivity {
 
-    private RecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private TextView label;
     private TextView label1;
+    private DBSingleton dbSingleton;
+//    Long start,end;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,17 +53,21 @@ public class Favorites extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        dbSingleton = DBSingleton.getInstance();
+//        start = Calendar.getInstance().getTimeInMillis();
+//        Log.d("LOG : ", "In Favorites Activity.");
+
         label = (TextView) findViewById(R.id.label);
         label1 = (TextView) findViewById(R.id.lable1);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
 
 
         SharedPreferences prefs = this.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE);
@@ -87,22 +94,65 @@ public class Favorites extends AppCompatActivity {
         }
     }
 
+
+    public void onResume(){
+        super.onResume();
+
+        String logString = "In Favorites Activity";
+        if(dbSingleton.insertLog(new LogData(getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+            Toast.makeText(getApplicationContext(), "Log entered.", Toast.LENGTH_SHORT).show();
+        }
+        Log.d("Current Position : ", "In Favorites Activity");
+
+//        List<LogData> receivedLogs = dbSingleton.getAllLogs();
+//        for (int i=0; i<receivedLogs.size(); i++) {
+//            Log.d("Received Log : ", "{" + receivedLogs.get(i).getUserId() + ", " +
+//                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
+//        }
+        LogData receivedLog = dbSingleton.getLastLog();
+        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
+
+        SharedPreferences.Editor editor = getSharedPreferences("Timer", Context.MODE_PRIVATE).edit();
+        editor.putLong("time", System.currentTimeMillis());
+        editor.commit();
+    }
+
+    public void onPause(){
+        super.onPause();
+        long end = System.currentTimeMillis();
+
+        SharedPreferences prefs = getSharedPreferences("Timer", Context.MODE_PRIVATE);
+        long start = prefs.getLong("time",0);
+
+        long elapsed = end - start;
+
+        String logString = "Time in FavActivity : " + elapsed/1000 + " seconds.";
+        if(dbSingleton.insertLog(new LogData(getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+            Toast.makeText(getApplicationContext(), "Log entered.", Toast.LENGTH_SHORT).show();
+        }
+        Log.d("Time in FavActivity : ", Long.toString(elapsed));
+
+//        List<LogData> receivedLogs = dbSingleton.getAllLogs();
+//        for (int i=0; i<receivedLogs.size(); i++) {
+//            Log.d("Received Log : ", "{" + receivedLogs.get(i).getUserId() + ", " +
+//                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
+//        }
+        LogData receivedLog = dbSingleton.getLastLog();
+        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
+    }
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                // app icon in action bar clicked; go home
-//                Intent parentIntent = NavUtils.getParentActivityIntent(this);
-//                if(parentIntent == null) {
-//                    finish();
-//                    return true;
-//                } else {
-////                    parentIntent.setFlags(Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT | Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//                    startActivity(parentIntent);
-//                    finish();
-//                    return true;
-//                }
-                startActivity(new Intent(this, MainActivity.class));
+//                end = Calendar.getInstance().getTimeInMillis();
+//                Log.d("Time in Fav Activity : ", Long.toString(end-start));
+//                startActivity(new Intent(this, MainActivity.class));
                 finish();
                 return true;
             default:
@@ -115,17 +165,13 @@ public class Favorites extends AppCompatActivity {
 
         SharedPreferences prefs = this.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE);
         Set<String> keysSet = prefs.getStringSet("mapKeys", null);
-//        Log.d("Prefs : ", prefs.toString());
         List<String> mapKeys = new ArrayList<>(keysSet);
-        Log.d("Map Keys : ", mapKeys.toString());
 
         HashMap<String, NewsFeed> savedNewsFeeds = new HashMap<>();
         Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new Favorites.UriDeserializer()).create();
         for (int i=0; i<mapKeys.size(); i++){
             String key = mapKeys.get(i);
-            Log.d("Saved Key : ", key);
             String json = prefs.getString(key, "");
-            Log.d("Saved Json String : ", json);
             NewsFeed newsFeed = gson.fromJson(json, NewsFeed.class);
             savedNewsFeeds.put(key, newsFeed);
         }

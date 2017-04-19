@@ -1,0 +1,156 @@
+package btp.psychosocialeducationapp;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.media.MediaScannerConnection;
+import android.os.Environment;
+import android.provider.SyncStateContract;
+import android.util.Log;
+
+import com.opencsv.CSVWriter;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
+
+/**
+ * Created by gkartik on 18/4/17.
+ */
+
+public class DBOperations {
+
+
+    public boolean addLog(LogData logData, DBHelper mDbHelper) {
+        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(DBSchema.KEY_TIMESTAMP, " time('now') ");
+        values.put(DBSchema.KEY_USER_ID, logData.getUserId());
+        values.put(DBSchema.KEY_EMAIL, logData.getEmail());
+        values.put(DBSchema.KEY_LOG_DATA, logData.getLog());
+
+        return db.insert(DBSchema.TABLE_LOGS, null, values) > 0;
+//        db.close(); // Closing database connection
+    }
+
+
+//    public LogData getSingleLog(int id, DBHelper mDbHelper) {
+//        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+//
+//        Cursor cursor = db.query(DBSchema.TABLE_LOGS, new String[] { DBSchema.KEY_USER_ID,
+//                        DBSchema.KEY_EMAIL, DBSchema.KEY_LOG_DATA }, DBSchema.KEY_USER_ID + "=?",
+//                new String[] { String.valueOf(id) }, null, null, null, null);
+//        if (cursor != null)
+//            cursor.moveToFirst();
+//
+//        LogData log = new LogData(cursor.getString(0),
+//                cursor.getString(1), cursor.getString(2));
+//        return log;
+//    }
+
+
+    public List<LogData> getAllLogs(SQLiteDatabase mDb) {
+        List<LogData> logsList = new ArrayList<LogData>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + DBSchema.TABLE_LOGS;
+
+//        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                LogData log = new LogData();
+                log.setUserId(cursor.getString(2));
+                log.setEmail(cursor.getString(3));
+                log.setLog(cursor.getString(4));
+                // Adding log to list
+                logsList.add(log);
+            } while (cursor.moveToNext());
+        }
+
+        // return logs list
+        return logsList;
+    }
+
+
+    public int getLogsCount(SQLiteDatabase mDb) {
+        String countQuery = "SELECT * FROM " + DBSchema.TABLE_LOGS;
+//        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(countQuery, null);
+        cursor.close();
+
+        // return count
+        return cursor.getCount();
+    }
+
+    public LogData getLastLog(SQLiteDatabase mDb) {
+        String selectQuery = "SELECT * FROM " + DBSchema.TABLE_LOGS;
+//        SQLiteDatabase db = mDbHelper.getReadableDatabase();
+        Cursor cursor = mDb.rawQuery(selectQuery, null);
+        cursor.moveToLast();
+        LogData log = new LogData();
+        log.setUserId(cursor.getString(2));
+        log.setEmail(cursor.getString(3));
+        log.setLog(cursor.getString(4));
+        cursor.close();
+
+        return log;
+    }
+
+    public boolean createCSVOfLogs(SQLiteDatabase mDb, Context context) {
+        File exportDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/InformationCapsule/CSV/", "");
+        long previousRowTimeVal = 0;
+        if (!exportDir.exists()) {
+            boolean mkdirs = exportDir.mkdirs();
+            if(!mkdirs) {
+                return false;
+            }
+        }
+        File outputFile = new File(exportDir, "userLogs.csv");
+        try{
+            if (outputFile.exists()) {
+                boolean delete = outputFile.delete();
+                if(!delete) {
+                    return false;
+                }
+            }
+            boolean isCreated = outputFile.createNewFile();
+            if (!isCreated) {
+                return false;
+            }
+            CSVWriter csvWriter = new CSVWriter(new FileWriter(outputFile));
+            Cursor curCSV = mDb.rawQuery("SELECT * FROM " + DBSchema.TABLE_LOGS, null);
+            if(curCSV != null) {
+                csvWriter.writeNext(curCSV.getColumnNames());
+                while(curCSV.moveToNext()) {
+                    if(curCSV.isFirst()) {
+                        previousRowTimeVal = Long.parseLong(curCSV.getString(1));
+                    }
+
+                    String arrString[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2), curCSV.getString(3), curCSV.getString(4)};
+                    if(Long.parseLong(curCSV.getString(1)) > previousRowTimeVal) {
+                        csvWriter.writeNext(new String[]{});
+                    }
+                    csvWriter.writeNext(arrString);
+                }
+                csvWriter.close();
+                curCSV.close();
+                MediaScannerConnection.scanFile(context, new String[]{outputFile.getAbsolutePath()}, null, null);
+                return true;
+            }
+            else {
+                return false;
+            }
+
+        } catch (Exception e) {
+            Log.e("MainActivity", e.getMessage(), e);
+//            e.printStackTrace();
+            return false;
+        }
+    }
+}

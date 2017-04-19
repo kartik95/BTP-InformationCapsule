@@ -25,7 +25,7 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:textSize="35dp"
-        android:text="NO FAVORITES"
+        android:text="कोई पसंदीदा नहीं हैं"
         android:visibility="invisible"
         android:textColor="#333"
         android:textStyle="bold"/>
@@ -41,6 +41,6 @@
         android:textColor="#333"
         android:gravity="center_horizontal"
         android:visibility="invisible"
-        android:text="Add your favorites by selecting newsfeeds from the home page" />
+        android:text="होमपेज से लेख चुनकर अपना पसंदीदा जोड़ें" />
 
 </RelativeLayout>

@@ -1,135 +1,15 @@
 package btp.psychosocialeducationapp;
 
-//import android.os.Bundle;
-//import android.support.design.widget.FloatingActionButton;
-//import android.support.design.widget.Snackbar;
-//import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.widget.Toolbar;
-//import android.view.View;
-//import android.view.Menu;
-//import android.view.MenuItem;
-//
-//public class MainActivity extends AppCompatActivity {
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-//    }
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        getMenuInflater().inflate(R.menu.menu_main, menu);
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-//}
 
-//import android.os.Bundle;
-//import android.support.design.widget.TabLayout;
-//import android.support.v4.app.Fragment;
-//import android.support.v4.app.FragmentManager;
-//import android.support.v4.app.FragmentPagerAdapter;
-//import android.support.v4.view.ViewPager;
-//import android.support.v7.app.AppCompatActivity;
-//import android.support.v7.widget.Toolbar;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//
-//public class MainActivity extends AppCompatActivity {
-//
-//    private Toolbar toolbar;
-//    private TabLayout tabLayout;
-//    private ViewPager viewPager;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-//
-//        viewPager = (ViewPager) findViewById(R.id.viewpager);
-//        setupViewPager(viewPager);
-//
-//        tabLayout = (TabLayout) findViewById(R.id.tabs);
-//        tabLayout.setupWithViewPager(viewPager);
-//    }
-//
-//    private void setupViewPager(ViewPager viewPager) {
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        adapter.addFragment(new LatestFragment(), "Latest");
-//        adapter.addFragment(new SavedFragment(), "Saved");
-////        adapter.addFragment(new ThreeFragment(), "THREE");
-//        viewPager.setAdapter(adapter);
-//    }
-//
-//    class ViewPagerAdapter extends FragmentPagerAdapter {
-//        private final List<Fragment> mFragmentList = new ArrayList<>();
-//        private final List<String> mFragmentTitleList = new ArrayList<>();
-//
-//        public ViewPagerAdapter(FragmentManager manager) {
-//            super(manager);
-//        }
-//
-//        @Override
-//        public Fragment getItem(int position) {
-//            return mFragmentList.get(position);
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mFragmentList.size();
-//        }
-//
-//        public void addFragment(Fragment fragment, String title) {
-//            mFragmentList.add(fragment);
-//            mFragmentTitleList.add(title);
-//        }
-//
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            return mFragmentTitleList.get(position);
-//        }
-//    }
-//}
-
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -145,6 +25,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
@@ -156,13 +37,17 @@ import android.view.animation.AnimationUtils;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.cast.CastRemoteDisplay;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -171,24 +56,30 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Set;
+
+import static java.security.AccessController.getContext;
 
 
 public class MainActivity extends AppCompatActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
     private static Toolbar toolbar;
-    private static ViewPager viewPager;
-    private static TabLayout tabLayout;
     private GoogleApiClient mGoogleApiClient;
     private HashMap<String, NewsFeed> savedNewsFeeds;
     private RecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
-    private Animation fab_open,fab_close,rotate_forward,rotate_backward;
-    private Boolean isFabOpen = false;
+    private DBSingleton dbSingleton;
+    static boolean active = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -198,113 +89,53 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        fab = (FloatingActionButton)findViewById(R.id.fab);
-//        fab1 = (FloatingActionButton)findViewById(R.id.fab1);
-//        fab2 = (FloatingActionButton)findViewById(R.id.fab2);
-//        fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
-//        fab_close = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.fab_close);
-//        rotate_forward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_forward);
-//        rotate_backward = AnimationUtils.loadAnimation(getApplicationContext(),R.anim.rotate_backward);
-//        fab.setOnClickListener(this);
-//        fab1.setOnClickListener(this);
-//        fab2.setOnClickListener(this);
+        dbSingleton = DBSingleton.getInstance();
 
-//        viewPager = (ViewPager) findViewById(R.id.viewPager);
-//        setupViewPager(viewPager);
+        active = true;
+        SharedPreferences.Editor editor = getSharedPreferences("Status", Context.MODE_PRIVATE).edit();
+        editor.putBoolean("status", active);
+        editor.commit();
+//        start = Calendar.getInstance().getTimeInMillis();
+//        start = System.currentTimeMillis();
+////        timer = Timer.getInstance();
+////        timer.startTime();
+//        Log.d("LOG : ", "In Main Activity.");
+
+//        SharedPreferences prefs = this.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE);
+//        Set<String> keysSet = prefs.getStringSet("mapKeys", null);
+//        if (keysSet != null) {
+//            savedNewsFeeds = new HashMap<>();
+//            List<String> mapKeys = new ArrayList<>(keysSet);
+//            Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new MainActivity.UriDeserializer()).create();
+//            for (int i=0; i<mapKeys.size(); i++){
+//                String key = mapKeys.get(i);
+//                String json = prefs.getString(key, "");
+//                NewsFeed newsFeed = gson.fromJson(json, NewsFeed.class);
+//                savedNewsFeeds.put(key, newsFeed);
+//            }
+//        }
 //
-//        tabLayout = (TabLayout) findViewById(R.id.tabLayout);
-//        tabLayout.setupWithViewPager(viewPager);//setting tab over viewpager
-        SharedPreferences prefs = this.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE);
-        Set<String> keysSet = prefs.getStringSet("mapKeys", null);
-        if (keysSet != null) {
-            Log.d("Map Keys : ", keysSet.toString());
-            savedNewsFeeds = new HashMap<>();
-            List<String> mapKeys = new ArrayList<>(keysSet);
-            Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new MainActivity.UriDeserializer()).create();
-            for (int i=0; i<mapKeys.size(); i++){
-                String key = mapKeys.get(i);
-//                Log.d("Key : ", key);
-                String json = prefs.getString(key, "");
-//                Log.d("Json : ", json);
-                NewsFeed newsFeed = gson.fromJson(json, NewsFeed.class);
-                savedNewsFeeds.put(key, newsFeed);
-            }
-        }
-
-//        SharedPreferences.Editor editor = this.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE).edit();
-//        editor.clear();
-//        editor.commit();
-
         recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getApplicationContext(), 2);
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.addItemDecoration(new MainActivity.GridSpacingItemDecoration(2, dpToPx(10), true));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
+//
+//        ArrayList<NewsFeed> newsFeeds = getNewsFeeds(getTitles(), getDates(), getImageURIs(), getDescriptions());
+//        if (savedNewsFeeds == null) {savedNewsFeeds = new HashMap<>();}
+//        adapter = new RecyclerViewAdapter(this, newsFeeds, savedNewsFeeds);
+//        recyclerView.setAdapter(adapter);
 
-        ArrayList<NewsFeed> newsFeeds = getNewsFeeds(getTitles(), getDates(), getImageURIs(), getDescriptions());
-        if (savedNewsFeeds == null) {savedNewsFeeds = new HashMap<>();}
-        adapter = new RecyclerViewAdapter(this, newsFeeds, savedNewsFeeds);
-        recyclerView.setAdapter(adapter);
-//
-//        try {
-//            Glide.with(this).load(R.drawable.backdrop).into((ImageView) findViewById(R.id.backdrop));
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
-
-        fab = (FloatingActionButton) findViewById(R.id.fab1);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Favorites.class);
-                startActivity(intent);
-            }
-        });
-//        final FrameLayout frameLayout = (FrameLayout) findViewById(R.id.frame_layout);
-//        frameLayout.getBackground().setAlpha(0);
-//        final FloatingActionsMenu fabMenu = (FloatingActionsMenu) findViewById(R.id.fab_menu);
-//        fabMenu.setOnFloatingActionsMenuUpdateListener(new FloatingActionsMenu.OnFloatingActionsMenuUpdateListener() {
+//        fab = (FloatingActionButton) findViewById(R.id.fab1);
+//        fab.setOnClickListener(new View.OnClickListener() {
 //            @Override
-//            public void onMenuExpanded() {
-//                frameLayout.getBackground().setAlpha(240);
-//                frameLayout.setOnTouchListener(new View.OnTouchListener() {
-//                    @Override
-//                    public boolean onTouch(View v, MotionEvent event) {
-//                        fabMenu.collapse();
-//                        return true;
-//                    }
-//                });
-//            }
-//
-//            @Override
-//            public void onMenuCollapsed() {
-//                frameLayout.getBackground().setAlpha(0);
-//                frameLayout.setOnTouchListener(null);
-//            }
-//        });
-        //Implementing tab selected listener over tablayout
-//        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-//            @Override
-//            public void onTabSelected(TabLayout.Tab tab) {
-//                viewPager.setCurrentItem(tab.getPosition());//setting current selected item over viewpager
-//                switch (tab.getPosition()) {
-//                    case 0:
-//                        Log.e("TAG","TAB1");
-//                        break;
-//                    case 1:
-//                        Log.e("TAG","TAB2");
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void onTabUnselected(TabLayout.Tab tab) {
-//            }
-//
-//            @Override
-//            public void onTabReselected(TabLayout.Tab tab) {
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Favorites.class);
+////                end = Calendar.getInstance().getTimeInMillis();
+//////                timer.stopTime();
+////                Log.d("Time in MainActivity : ", Long.toString(end-start));
+//                startActivity(intent);
 //            }
 //        });
 
@@ -318,6 +149,83 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
+    public void onResume(){
+        super.onResume();
+        active = true;
+        SharedPreferences prefs = this.getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE);
+        Set<String> keysSet = prefs.getStringSet("mapKeys", null);
+        if (keysSet != null) {
+            savedNewsFeeds = new HashMap<>();
+            List<String> mapKeys = new ArrayList<>(keysSet);
+            Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new MainActivity.UriDeserializer()).create();
+            for (int i=0; i<mapKeys.size(); i++){
+                String key = mapKeys.get(i);
+                String json = prefs.getString(key, "");
+                NewsFeed newsFeed = gson.fromJson(json, NewsFeed.class);
+                savedNewsFeeds.put(key, newsFeed);
+            }
+        }
+
+        ArrayList<NewsFeed> newsFeeds = getNewsFeeds(getTitles(), getDates(), getImageURIs(), getDescriptions());
+        if (savedNewsFeeds == null) {savedNewsFeeds = new HashMap<>();}
+        adapter = new RecyclerViewAdapter(this, newsFeeds, savedNewsFeeds);
+        recyclerView.setAdapter(adapter);
+
+        fab = (FloatingActionButton) findViewById(R.id.fab1);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Favorites.class);
+                startActivity(intent);
+            }
+        });
+
+        String logString = "In Main Activity";
+        if(dbSingleton.insertLog(new LogData(getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+            Toast.makeText(getApplicationContext(), "Log entered.", Toast.LENGTH_SHORT).show();
+        }
+        Log.d("Current Position : ", "In Main Activity");
+
+//        List<LogData> receivedLogs = dbSingleton.getAllLogs();
+//        for (int i=0; i<receivedLogs.size(); i++) {
+//            Log.d("Received Log : ", "{" + receivedLogs.get(i).getUserId() + ", " +
+//                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
+//        }
+        LogData receivedLog = dbSingleton.getLastLog();
+        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                    receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
+
+        SharedPreferences.Editor editor = getSharedPreferences("Timer", Context.MODE_PRIVATE).edit();
+        editor.putLong("time", System.currentTimeMillis());
+        editor.commit();
+    }
+
+    public void onPause(){
+        super.onPause();
+        long end = System.currentTimeMillis();
+        SharedPreferences prefs = getSharedPreferences("Timer", Context.MODE_PRIVATE);
+        long start = prefs.getLong("time",0);
+        long elapsed = end - start;
+
+        String logString = "Time in Main Activity : " + elapsed/1000 + " seconds";
+        if(dbSingleton.insertLog(new LogData(getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+            Toast.makeText(getApplicationContext(), "Log entered.", Toast.LENGTH_SHORT).show();
+        }
+        Log.d("Time in MainActivity : ", Long.toString(elapsed));
+
+//        List<LogData> receivedLogs = dbSingleton.getAllLogs();
+//        for (int i=0; i<receivedLogs.size(); i++) {
+//            Log.d("Received Log : ", "{" + receivedLogs.get(i).getUserId() + ", " +
+//                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
+//        }
+        LogData receivedLog = dbSingleton.getLastLog();
+        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
+    }
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -328,40 +236,59 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        if (item.getItemId() == R.id.action_settings) {
-            return true;
-        }
         if (item.getItemId() == R.id.logout) {
 
-            SharedPreferences.Editor editor = getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit();
-            editor.clear();
-            editor.commit();
-            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            Plus.AccountApi.clearDefaultAccount(mGoogleApiClient);
-            mGoogleApiClient.clearDefaultAccountAndReconnect();
+//            getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit().remove("name").commit();
+            getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit().putString("alreadySignedIn", "-1").apply();
+
+            active = false;
+            getSharedPreferences("Status", Context.MODE_PRIVATE).edit().putBoolean("status", active).commit();
+
+            Auth.GoogleSignInApi.signOut(mGoogleApiClient);
             mGoogleApiClient.disconnect();
+//            mGoogleApiClient.clearDefaultAccountAndReconnect().setResultCallback(new ResultCallback<Status>() {
+//                @Override
+//                public void onResult(Status status) {
+//                    mGoogleApiClient.disconnect();
+//                }
+//            });
+
+            String logString = "Signed out successfully.";
+            if(dbSingleton.insertLog(new LogData(getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
+                    getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", null), logString))){
+                Toast.makeText(getApplicationContext(), "Log entered.", Toast.LENGTH_SHORT).show();
+            }
+
+            LogData receivedLog = dbSingleton.getLastLog();
+            Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                    receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
+
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             startActivity(intent);
             finish();
             return true;
         }
-        if (item.getItemId() == R.id.edit_profile) {
+        else if (item.getItemId() == R.id.edit_profile) {
 
             Intent intent = new Intent(MainActivity.this, EditActivity.class);
             startActivity(intent);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
 
-    //Setting View Pager
-//    private void setupViewPager(ViewPager viewPager) {
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-//        adapter.addFrag(new LatestFragment(), "Latest");
-//        adapter.addFrag(new SavedFragment(), "Saved");
-//        viewPager.setAdapter(adapter);
-//    }
+    @Override
+    public void onBackPressed(){
+
+        super.onBackPressed();
+        active = false;
+        SharedPreferences.Editor editor = getSharedPreferences("Status", Context.MODE_PRIVATE).edit();
+        editor.putBoolean("status", active);
+        editor.commit();
+        finish();
+    }
+
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -376,58 +303,56 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
-    //View Pager fragments setting adapter class
-//    class ViewPagerAdapter extends FragmentPagerAdapter {
-//        private final List<Fragment> mFragmentList = new ArrayList<>();//fragment arraylist
-//        private final List<String> mFragmentTitleList = new ArrayList<>();//title arraylist
-//
-//        public ViewPagerAdapter(FragmentManager manager) {
-//            super(manager);
-//        }
-//
-//        @Override
-//        public Fragment getItem(int position) {
-//            return mFragmentList.get(position);
-//        }
-//
-//        @Override
-//        public int getCount() {
-//            return mFragmentList.size();
-//        }
-//
-//
-//        //adding fragments and title method
-//        public void addFrag(Fragment fragment, String title) {
-//            mFragmentList.add(fragment);
-//            mFragmentTitleList.add(title);
-//        }
-//
-//        @Override
-//        public CharSequence getPageTitle(int position) {
-//            return mFragmentTitleList.get(position);
-//        }
-//    }
-
     private ArrayList getTitles() {
         ArrayList<String> titles = new ArrayList<>();
-        titles.add("What is Schizophrenia?");
-        titles.add("Symptoms of Schizophrenia");
-        titles.add("Causes of Schizophrenia");
-        titles.add("Therapy of Schizophrenia");
-        titles.add("Suggestions regarding Schizophrenia");
-        titles.add("Incidents of Schizophrenia");
+        titles.clear();
+//        titles.add("What is Schizophrenia?");
+//        titles.add("Symptoms of Schizophrenia");
+//        titles.add("Causes of Schizophrenia");
+//        titles.add("Therapy of Schizophrenia");
+//        titles.add("Suggestions regarding Schizophrenia");
+//        titles.add("Incidents of Schizophrenia");
+        for(int i=0; i<6; i++){
+            try {
+                InputStream is = getResources().getAssets().open("Title" + Integer.toString(i) + ".txt");
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+
+                String title = new String(buffer);
+                titles.add(title);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         return titles;
     }
 
 
     private ArrayList getDescriptions() {
         ArrayList<String> descs = new ArrayList<>();
-        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
-        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
-        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.");
-        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
-        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
-        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.");
+        descs.clear();
+//        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
+//        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
+//        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.");
+//        descs.add("Schizophrenia is a mental disorder characterized by abnormal social behavior and failure to understand what is real.");
+//        descs.add("Common symptoms include false beliefs, unclear or confused thinking, hearing voices that others do not, reduced social engagement and emotional expression, and a lack of motivation.");
+//        descs.add("The causes of schizophrenia include environmental and genetic factors. Possible environmental factors include being raised in a city, cannabis use, certain infections, parental age, and poor nutrition during pregnancy.")
+        try{
+            for(int i=0; i<6; i++) {
+                InputStream is = getResources().getAssets().open("Desc" + Integer.toString(i) + ".txt");
+                int size = is.available();
+                byte[] buffer = new byte[size];
+                is.read(buffer);
+                is.close();
+
+                String text = new String(buffer);
+                descs.add(text);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return descs;
     }
 

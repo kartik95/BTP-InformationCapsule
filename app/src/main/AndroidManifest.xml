@@ -3,6 +3,7 @@
     package="btp.psychosocialeducationapp">
 
     <application
+        android:name=".InfoCapsuleApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -24,6 +25,7 @@
         <activity
             android:name=".LoginActivity"
             android:label="@string/app_name"
+            android:configChanges="locale"
             android:theme="@style/MyMaterialTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,19 +36,29 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/MyMaterialTheme" />
+            android:configChanges="locale"
+            android:theme="@style/MyMaterialTheme">
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
         <activity
             android:name=".Individual"
             android:label="@string/title_activity_individual"
+            android:configChanges="locale"
             android:theme="@style/MyMaterialTheme" />
         <activity
             android:name=".EditActivity"
             android:label="@string/title_activity_edit"
+            android:configChanges="locale"
             android:theme="@style/MyMaterialTheme" />
         <activity
             android:name=".Favorites"
             android:label="@string/title_activity_favorites"
-            android:theme="@style/MyMaterialTheme"></activity>
+            android:configChanges="locale"
+            android:theme="@style/MyMaterialTheme"/>
     </application>
 
 </manifest>

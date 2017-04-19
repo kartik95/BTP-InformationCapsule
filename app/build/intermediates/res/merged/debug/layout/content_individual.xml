@@ -63,36 +63,36 @@
                 Putent admodum deseruisse eos ex, ut nam saepe omittantur. Option partiendo at cum, cu vis solet dignissim, partem delectus apeirian id eum. Ut percipit consectetuer cum, adhuc tation mandamus no duo. Atqui dolor cum an. Qui aliquam dissentias ne. Eos illud hendrerit ex, vim cu eirmod denique delicatissimi, eum eu putent mandamus scripserit."
                 android:textSize="15dp" />
 
-            <View
-                android:id="@+id/sep1"
-                android:layout_width="fill_parent"
-                android:layout_height="2dip"
-                android:background="#e3e3e3"
-                android:layout_below="@+id/desc"
-                android:layout_marginBottom="16dp"/>
+            <!--<View-->
+                <!--android:id="@+id/sep1"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="2dip"-->
+                <!--android:background="#e3e3e3"-->
+                <!--android:layout_below="@+id/desc"-->
+                <!--android:layout_marginBottom="16dp"/>-->
 
-            <TextView
-                android:id="@+id/title1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="#4c4c4c"
-                android:text="TITLE 1"
-                android:layout_below="@+id/sep1"
-                android:textStyle="bold"
-                android:textSize="20dp"
-                android:layout_marginBottom="16dp"/>
+            <!--<TextView-->
+                <!--android:id="@+id/title1"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#4c4c4c"-->
+                <!--android:text="TITLE 1"-->
+                <!--android:layout_below="@+id/sep1"-->
+                <!--android:textStyle="bold"-->
+                <!--android:textSize="20dp"-->
+                <!--android:layout_marginBottom="16dp"/>-->
 
-            <TextView
-                android:id="@+id/desc1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="26dp"
-                android:textColor="#4c4c4c"
-                android:layout_below="@+id/title1"
-                android:text="Lorem ipsum dolor sit amet, ex diceret pericula sadipscing ius, ius nullam antiopam oportere te, ne eum diam impedit iudicabit. An vis quem vivendo corpora, sea ne nostrum maiestatis quaerendum. In vel probo regione efficiantur. Maiorum expetendis vis in, id bonorum suscipiantur vim, duo porro audire omnesque ei. Democritum abhorreant cu per, ad cum legimus comprehensam necessitatibus.
+            <!--<TextView-->
+                <!--android:id="@+id/desc1"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginBottom="26dp"-->
+                <!--android:textColor="#4c4c4c"-->
+                <!--android:layout_below="@+id/title1"-->
+                <!--android:text="Lorem ipsum dolor sit amet, ex diceret pericula sadipscing ius, ius nullam antiopam oportere te, ne eum diam impedit iudicabit. An vis quem vivendo corpora, sea ne nostrum maiestatis quaerendum. In vel probo regione efficiantur. Maiorum expetendis vis in, id bonorum suscipiantur vim, duo porro audire omnesque ei. Democritum abhorreant cu per, ad cum legimus comprehensam necessitatibus.-->
 
-                Putent admodum deseruisse eos ex, ut nam saepe omittantur. Option partiendo at cum, cu vis solet dignissim, partem delectus apeirian id eum. Ut percipit consectetuer cum, adhuc tation mandamus no duo. Atqui dolor cum an. Qui aliquam dissentias ne. Eos illud hendrerit ex, vim cu eirmod denique delicatissimi, eum eu putent mandamus scripserit."
-                android:textSize="15dp" />
+                <!--Putent admodum deseruisse eos ex, ut nam saepe omittantur. Option partiendo at cum, cu vis solet dignissim, partem delectus apeirian id eum. Ut percipit consectetuer cum, adhuc tation mandamus no duo. Atqui dolor cum an. Qui aliquam dissentias ne. Eos illud hendrerit ex, vim cu eirmod denique delicatissimi, eum eu putent mandamus scripserit."-->
+                <!--android:textSize="15dp" />-->
 
         </RelativeLayout>
 
