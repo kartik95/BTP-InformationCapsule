@@ -10,10 +10,11 @@ public class NewsFeed {
 
     private String title;
     private String date;
-    private Uri imageUri;
+//    private Uri imageUri;
+    private String imageUri;
     private String desc;
 
-    public NewsFeed(String title, String date, Uri imageUri, String desc){
+    public NewsFeed(String title, String date, String imageUri, String desc){
         this.title = title;
         this.date = date;
         this.imageUri = imageUri;
@@ -36,11 +37,11 @@ public class NewsFeed {
         this.date = date;
     }
 
-    public Uri getImageUri() {
+    public String getImageUri() {
         return imageUri;
     }
 
-    public void setImageUri(Uri imageUri) {
+    public void setImageUri(String imageUri) {
         this.imageUri = imageUri;
     }
 

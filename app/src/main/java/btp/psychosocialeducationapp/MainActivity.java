@@ -56,10 +56,12 @@ import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -67,6 +69,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
+import btp.psychosocialeducationapp.API.APIClient;
 
 import static java.security.AccessController.getContext;
 
@@ -77,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     private HashMap<String, NewsFeed> savedNewsFeeds;
     private RecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
-    private FloatingActionButton fab;
+    private FloatingActionButton fab, fab1, fab2, fab3;
     private DBSingleton dbSingleton;
     static boolean active = false;
 
@@ -91,10 +95,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 
         dbSingleton = DBSingleton.getInstance();
 
-        active = true;
-        SharedPreferences.Editor editor = getSharedPreferences("Status", Context.MODE_PRIVATE).edit();
-        editor.putBoolean("status", active);
-        editor.commit();
+        getSharedPreferences("RegisteredStatus", Context.MODE_PRIVATE).edit().putString("regStatus", "R").apply();
+//        active = true;
+//        SharedPreferences.Editor editor = getSharedPreferences("Status", Context.MODE_PRIVATE).edit();
+//        editor.putBoolean("status", active);
+//        editor.commit();
+
+
 //        start = Calendar.getInstance().getTimeInMillis();
 //        start = System.currentTimeMillis();
 ////        timer = Timer.getInstance();
@@ -167,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
         }
 
         ArrayList<NewsFeed> newsFeeds = getNewsFeeds(getTitles(), getDates(), getImageURIs(), getDescriptions());
+//        ArrayList<NewsFeed> newsFeeds = getNewsFeeds();
         if (savedNewsFeeds == null) {savedNewsFeeds = new HashMap<>();}
         adapter = new RecyclerViewAdapter(this, newsFeeds, savedNewsFeeds);
         recyclerView.setAdapter(adapter);
@@ -179,6 +187,38 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
                 startActivity(intent);
             }
         });
+
+        fab1 = (FloatingActionButton) findViewById(R.id.fab);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                APICalls apiCalls = new APICalls();
+                apiCalls.sendApplicationLogs();
+            }
+        });
+
+        fab2 = (FloatingActionButton) findViewById(R.id.fab2);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                APICalls apiCalls = new APICalls();
+                apiCalls.sendUserInfo();
+            }
+        });
+
+        fab3 = (FloatingActionButton) findViewById(R.id.fab3);
+        fab3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dbSingleton.createCSVOfLogs(getApplicationContext())) {
+                    Toast.makeText(getApplicationContext(), "CSV created.", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "CSV couldn't be created.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
 
         String logString = "In Main Activity";
         if(dbSingleton.insertLog(new LogData(getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", null),
@@ -193,7 +233,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //        }
         LogData receivedLog = dbSingleton.getLastLog();
-        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+        Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                     receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
 
         SharedPreferences.Editor editor = getSharedPreferences("Timer", Context.MODE_PRIVATE).edit();
@@ -221,7 +261,7 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
 //                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //        }
         LogData receivedLog = dbSingleton.getLastLog();
-        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+        Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                 receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
     }
 
@@ -369,17 +409,178 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.C
     }
 
 
-    private ArrayList<Uri> getImageURIs() {
-        ArrayList<Uri> imageURIs = new ArrayList<>();
+    private ArrayList<String> getImageURIs() {
+        ArrayList<String> imageURIs = new ArrayList<>();
         for (int i =1; i<=6; i++){
             Uri uri = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/drawable/btp" + i);
-            imageURIs.add(uri);
+            imageURIs.add(uri.toString());
         }
         return imageURIs;
     }
 
 
-    private ArrayList<NewsFeed> getNewsFeeds(ArrayList<String> titles, ArrayList<String> dates, ArrayList<Uri> imageUris,
+//    private NewsFeed getWhatNewsFeed() {
+//        String title = null;
+//        try{
+//            InputStream is = getResources().getAssets().open("what_title.txt");
+//            int size = is.available();
+//            byte[] buffer = new byte[size];
+//            is.read(buffer);
+//            is.close();
+//
+//            title = new String(buffer);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String desc = null;
+//        try{
+//            InputStream is = getResources().getAssets().open("what.txt");
+//            int size = is.available();
+//            byte[] buffer = new byte[size];
+//            is.read(buffer);
+//            is.close();
+//
+//            desc = new String(buffer);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Uri uri = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/drawable/btp1");
+//        String date = "January 10, 2017";
+//
+//        return new NewsFeed(title, date, uri.toString(), desc);
+//    }
+//
+//
+//    private NewsFeed getCausesNewsFeed() {
+//        String title = null;
+//        try{
+//            InputStream is = getResources().getAssets().open("causes_title.txt");
+//            int size = is.available();
+//            byte[] buffer = new byte[size];
+//            is.read(buffer);
+//            is.close();
+//
+//            title = new String(buffer);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String desc = "";
+//        try{
+//            for(int i=0; i<8; i++) {
+//                InputStream is = getResources().getAssets().open("causes" + Integer.toString(i) + ".txt");
+//                int size = is.available();
+//                byte[] buffer = new byte[size];
+//                is.read(buffer);
+//                is.close();
+//
+//                desc += new String(buffer) + " & ";
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Uri uri = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/drawable/btp2");
+//        String date = "March 30, 2017";
+//
+//        return new NewsFeed(title, date, uri.toString(), desc);
+//    }
+//
+//
+//    private NewsFeed getSymptomsNewsFeed() {
+//        String title = "";
+//        try{
+//            InputStream is = getResources().getAssets().open("symptoms_title.txt");
+//            BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+//            String line = reader.readLine();
+//            while (line != null) {
+//                title += line + " & ";
+//                line = reader.readLine();
+//            }
+////            int size = is.available();
+////            byte[] buffer = new byte[size];
+////            is.read(buffer);
+////            is.close();
+//
+////            title = new String(buffer);
+//            reader.close();
+//            is.close();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String desc = "";
+//        try{
+//            for(int i=0; i<5; i++) {
+//                InputStream is = getResources().getAssets().open("symptoms" + Integer.toString(i) + ".txt");
+//                int size = is.available();
+//                byte[] buffer = new byte[size];
+//                is.read(buffer);
+//                is.close();
+//
+//                desc += new String(buffer) + " & ";
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Uri uri = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/drawable/btp3");
+//        String date = "February 12, 2017";
+//
+//        return new NewsFeed(title, date, uri.toString(), desc);
+//    }
+//
+//
+//    private NewsFeed getDiagnosisNewsFeed() {
+//        String title = "";
+//        try{
+//            InputStream is = getResources().getAssets().open("diagnosis_title.txt");
+//            int size = is.available();
+//            byte[] buffer = new byte[size];
+//            is.read(buffer);
+//            is.close();
+//
+//            title = new String(buffer);
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        String desc = "";
+//        try{
+//            for(int i=0; i<3; i++) {
+//                InputStream is = getResources().getAssets().open("diagnosis" + Integer.toString(i) + ".txt");
+//                int size = is.available();
+//                byte[] buffer = new byte[size];
+//                is.read(buffer);
+//                is.close();
+//
+//                desc += new String(buffer) + " & ";
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        Uri uri = Uri.parse("android.resource://" + getApplicationContext().getPackageName() + "/drawable/btp4");
+//        String date = "December 18, 2016";
+//
+//        return new NewsFeed(title, date, uri.toString(), desc);
+//    }
+//
+//
+//    private ArrayList<NewsFeed> getNewsFeeds() {
+//        ArrayList<NewsFeed> newsFeeds = new ArrayList<>();
+//        newsFeeds.add(getWhatNewsFeed());
+//        newsFeeds.add(getSymptomsNewsFeed());
+//        newsFeeds.add(getCausesNewsFeed());
+//        newsFeeds.add(getDiagnosisNewsFeed());
+//        return newsFeeds;
+//    }
+
+
+    private ArrayList<NewsFeed> getNewsFeeds(ArrayList<String> titles, ArrayList<String> dates, ArrayList<String> imageUris,
                                              ArrayList<String> descs) {
         ArrayList<NewsFeed> newsFeeds = new ArrayList<>();
         for(int i=0; i<titles.size(); i++) {

@@ -5,7 +5,7 @@
     density="xhdpi"
     format="8"
     plugin-version="2.2.3"
-    timestamp="51354184328435"
+    timestamp="16405070654951"
     token="-7516991763726398179"
     verifier="FULL_BUILD_REQUESTED" >
 
@@ -27,7 +27,7 @@
         type="MAIN" />
 
     <build
-        timestamp="51354184328435"
+        timestamp="16405070654951"
         verifier="FULL_BUILD_REQUESTED" >
         <artifact
             location="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/outputs/apk/app-debug.apk"

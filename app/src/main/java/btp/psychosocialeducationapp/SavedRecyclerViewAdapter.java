@@ -111,7 +111,7 @@ public class SavedRecyclerViewAdapter extends RecyclerView.Adapter<SavedViewHold
         mainHolder.cardView.setTag(position);
         mainHolder.title.setText(savedNewsFeed.getTitle());
         mainHolder.date.setText(savedNewsFeed.getDate());
-        mainHolder.image.setImageURI(savedNewsFeed.getImageUri());
+        mainHolder.image.setImageURI(Uri.parse(savedNewsFeed.getImageUri()));
         mainHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -156,7 +156,7 @@ public class SavedRecyclerViewAdapter extends RecyclerView.Adapter<SavedViewHold
 //                            receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //                }
                 LogData receivedLog = dbSingleton.getLastLog();
-                Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+                Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                         receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
 
 

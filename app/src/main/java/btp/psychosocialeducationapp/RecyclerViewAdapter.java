@@ -80,7 +80,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
         mainHolder.cardView.setTag(position);
         mainHolder.title.setText(newsFeed.getTitle());
         mainHolder.date.setText(newsFeed.getDate());
-        mainHolder.image.setImageURI(newsFeed.getImageUri());
+        mainHolder.image.setImageURI(Uri.parse(newsFeed.getImageUri()));
 
         mainHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -141,7 +141,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 //                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //        }
         LogData receivedLog = dbSingleton.getLastLog();
-        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+        Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                 receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
 
         savedNewsFeeds.put(Integer.toString(position), newsFeed);
@@ -162,7 +162,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<ViewHolder> {
 //                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //        }
         LogData receivedLog = dbSingleton.getLastLog();
-        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+        Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                 receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
 
         savedNewsFeeds.remove(Integer.toString(position));

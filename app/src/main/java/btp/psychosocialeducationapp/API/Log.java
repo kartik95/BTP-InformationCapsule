@@ -16,7 +16,7 @@ public class Log {
     @SerializedName("timeStamp")
     String timeStamp;
 
-    public Log(String logData, String timeStamp) {
+    public Log(String timeStamp, String logData) {
         this.timeStamp = timeStamp;
         this.logData = logData;
     }

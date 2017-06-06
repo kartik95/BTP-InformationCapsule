@@ -76,7 +76,7 @@ public class Individual extends AppCompatActivity {
 //                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //        }
         LogData receivedLog = dbSingleton.getLastLog();
-        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+        Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                 receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
 
         SharedPreferences.Editor editor = getSharedPreferences("Timer", Context.MODE_PRIVATE).edit();
@@ -101,7 +101,7 @@ public class Individual extends AppCompatActivity {
         Log.d("Time in IndActivity : ", Long.toString(elapsed));
 
         LogData receivedLog = dbSingleton.getLastLog();
-        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+        Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                 receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
     }
 

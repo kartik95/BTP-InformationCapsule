@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -20,12 +21,27 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
+
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import btp.psychosocialeducationapp.API.APIClient;
+import btp.psychosocialeducationapp.API.Response;
+import btp.psychosocialeducationapp.API.User;
+import retrofit.Callback;
+import retrofit.RetrofitError;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -46,24 +62,10 @@ public class EditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_edit);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-//        mApiClient = new APIClient();
-//
-//        if(getSharedPreferences("LoginResponse", Context.MODE_PRIVATE).getString("response", null).equals("failure")) {
-//
-//        }
+
+        mApiClient = new APIClient();
         dbSingleton = DBSingleton.getInstance();
 
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-//        start = Calendar.getInstance().getTimeInMillis();
-////        timer = Timer.getInstance();
-////        timer.startTime();
-//        Log.d("LOG : ", "In Edit Activity.");
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        //Set EditProfile fields with already present values of Profile Inf
-
-        //Set Profile Information
         getProfileInformation();
 
         gender = (EditText) findViewById(R.id.et);
@@ -71,9 +73,25 @@ public class EditActivity extends AppCompatActivity {
         phone = (EditText) findViewById(R.id.et2);
         alternatePhone = (EditText) findViewById(R.id.et3);
 
-        InputMethodManager imm = (InputMethodManager)this.getSystemService(Service.INPUT_METHOD_SERVICE);
+//        if (!getSharedPreferences("Status", Context.MODE_PRIVATE).getBoolean("status", false)) {
+//            gender.setText("अपना लिंग दर्ज करें");
+//            gender.setTextColor(Color.parseColor("#666666"));
+//            age.setText("अपनी आयु दर्ज करें");
+//            age.setTextColor(Color.parseColor("#666666"));
+//            phone.setText("अपना प्राथमिक संपर्क दर्ज करें");
+//            phone.setTextColor(Color.parseColor("#666666"));
+//            alternatePhone.setText("अपना वैकल्पिक संपर्क दर्ज करें");
+//            alternatePhone.setTextColor(Color.parseColor("#666666"));
+//        }
+//        else {
+//            SharedPreferences prefs = getSharedPreferences("My_Prefs1", Context.MODE_PRIVATE);
+//            gender.setText(prefs.getString("gender",""));
+//            age.setText(prefs.getString("age",""));
+//            phone.setText(prefs.getString("phone",""));
+//            alternatePhone.setText(prefs.getString("alternatePhone",""));
+//        }
 
-        if (!getSharedPreferences("Status", Context.MODE_PRIVATE).getBoolean("status", false)) {
+        if(getSharedPreferences("RegisteredStatus", Context.MODE_PRIVATE).getString("regStatus", "NR").equals("NR")){
             gender.setText("अपना लिंग दर्ज करें");
             gender.setTextColor(Color.parseColor("#666666"));
             age.setText("अपनी आयु दर्ज करें");
@@ -138,15 +156,58 @@ public class EditActivity extends AppCompatActivity {
             editor.putString("age", age1.getText().toString());
             editor.putString("phone", phone1.getText().toString());
             editor.putString("alternatePhone", alternatePhone1.getText().toString());
-            editor.commit();
+            editor.apply();
 
-            SharedPreferences prefs = getSharedPreferences("Status", Context.MODE_PRIVATE);
-            if (!prefs.getBoolean("status", false)) {
-                Intent intent = new Intent(EditActivity.this, MainActivity.class);
-                startActivity(intent);
+//            SharedPreferences prefs = getSharedPreferences("Status", Context.MODE_PRIVATE);
+//            if (!prefs.getBoolean("status", false)) {
+//                Intent intent = new Intent(EditActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+
+            if(getSharedPreferences("RegisteredStatus", Context.MODE_PRIVATE).getString("regStatus", "NR").equals("NR")){
+                User user = new User(getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("id", ""),
+                        getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).getString("email", ""),
+                        gender1.getText().toString(), age1.getText().toString(),
+                        phone1.getText().toString(), alternatePhone1.getText().toString(),
+                        new ArrayList<String>(), new ArrayList<NewsFeed>());
+
+                mApiClient.getUserAPI().register(user, new Callback<Response>() {
+                    @Override
+                    public void success(Response response, retrofit.client.Response response2) {
+                        if(response.response.equals("success")){
+                            SharedPreferences.Editor editor = getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE).edit();
+                            editor.clear();
+
+                            HashMap<String, NewsFeed> savedNewsFeeds = new HashMap<String, NewsFeed>();
+                            Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new EditActivity.UriSerializer()).create();
+                            List<String> mapKeys = new ArrayList<>(savedNewsFeeds.keySet());
+                            Set<String> keysSet = new HashSet<>(mapKeys);
+                            editor.putStringSet("mapKeys", keysSet);
+                            for(int i=0; i<savedNewsFeeds.size(); i++){
+                                String value = gson.toJson(savedNewsFeeds.get(mapKeys.get(i)));
+                                editor.putString(mapKeys.get(i), value);
+                            }
+                            editor.apply();
+
+                            Intent intent = new Intent(EditActivity.this, MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
+                    }
+
+                    @Override
+                    public void failure(RetrofitError error) {
+                        Toast.makeText(EditActivity.this, "Registration error.", Toast.LENGTH_SHORT).show();
+                        Log.d("Retrofit Edit Error : ", error.toString());
+                    }
+                });
+                return true;
             }
-            finish();
-            return true;
+            else {
+                finish();
+                return true;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -170,7 +231,7 @@ public class EditActivity extends AppCompatActivity {
 //                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //        }
         LogData receivedLog = dbSingleton.getLastLog();
-        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+        Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                 receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
 
         SharedPreferences.Editor editor = getSharedPreferences("Timer", Context.MODE_PRIVATE).edit();
@@ -200,7 +261,7 @@ public class EditActivity extends AppCompatActivity {
 //                    receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //        }
         LogData receivedLog = dbSingleton.getLastLog();
-        Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+        Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                 receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
     }
 
@@ -236,4 +297,10 @@ public class EditActivity extends AppCompatActivity {
         }
     }
 
+
+    public class UriSerializer implements JsonSerializer<Uri> {
+        public JsonElement serialize(Uri src, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(src.toString());
+        }
+    }
 }

@@ -2,6 +2,8 @@ package btp.psychosocialeducationapp.API;
 
 import java.util.ArrayList;
 
+import btp.psychosocialeducationapp.LogData;
+
 /**
  * Created by gkartik on 19/4/17.
  */
@@ -9,10 +11,16 @@ import java.util.ArrayList;
 public class ApplicationLogsPost {
 
     public UserInfo userInfo;
-    public ArrayList<Log> logsList;
+    public Log logData;
 
-    public ApplicationLogsPost(UserInfo userInfo, ArrayList<Log> logsList) {
+    public ApplicationLogsPost(UserInfo userInfo, Log logData) {
         this.userInfo = userInfo;
-        this.logsList = logsList;
+        this.logData = logData;
     }
+
+    public UserInfo getUserInfo() {return this.userInfo;}
+    public void setUserInfo(UserInfo userInfo) {this.userInfo = userInfo;}
+
+    public Log getLogData() {return this.logData;}
+    public void setLogData(Log logData) {this.logData = logData;}
 }

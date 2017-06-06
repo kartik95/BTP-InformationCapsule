@@ -161,17 +161,17 @@ public class LatestFragment extends Fragment {
     }
 
 
-    private ArrayList<Uri> getImageURIs() {
-        ArrayList<Uri> imageURIs = new ArrayList<>();
+    private ArrayList<String> getImageURIs() {
+        ArrayList<String> imageURIs = new ArrayList<>();
         for (int i =1; i<=6; i++){
             Uri uri = Uri.parse("android.resource://" + getContext().getPackageName() + "/drawable/btp" + i);
-            imageURIs.add(uri);
+            imageURIs.add(uri.toString());
         }
         return imageURIs;
     }
 
 
-    private ArrayList<NewsFeed> getNewsFeeds(ArrayList<String> titles, ArrayList<String> dates, ArrayList<Uri> imageUris,
+    private ArrayList<NewsFeed> getNewsFeeds(ArrayList<String> titles, ArrayList<String> dates, ArrayList<String> imageUris,
                                              ArrayList<String> descs) {
         ArrayList<NewsFeed> newsFeeds = new ArrayList<>();
         for(int i=0; i<titles.size(); i++) {

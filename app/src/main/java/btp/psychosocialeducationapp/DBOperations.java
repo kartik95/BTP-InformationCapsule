@@ -14,7 +14,9 @@ import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -28,7 +30,7 @@ public class DBOperations {
     public boolean addLog(LogData logData, DBHelper mDbHelper) {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(DBSchema.KEY_TIMESTAMP, " time('now') ");
+//        values.put(DBSchema.KEY_TIMESTAMP, new SimpleDateFormat("MM/dd/yyyy h:mm:ss a").format(new Date()));
         values.put(DBSchema.KEY_USER_ID, logData.getUserId());
         values.put(DBSchema.KEY_EMAIL, logData.getEmail());
         values.put(DBSchema.KEY_LOG_DATA, logData.getLog());
@@ -65,6 +67,7 @@ public class DBOperations {
         if (cursor.moveToFirst()) {
             do {
                 LogData log = new LogData();
+                log.setTimeStamp(cursor.getString(1));
                 log.setUserId(cursor.getString(2));
                 log.setEmail(cursor.getString(3));
                 log.setLog(cursor.getString(4));
@@ -94,6 +97,7 @@ public class DBOperations {
         Cursor cursor = mDb.rawQuery(selectQuery, null);
         cursor.moveToLast();
         LogData log = new LogData();
+        log.setTimeStamp(cursor.getString(1));
         log.setUserId(cursor.getString(2));
         log.setEmail(cursor.getString(3));
         log.setLog(cursor.getString(4));
@@ -104,10 +108,10 @@ public class DBOperations {
 
     public boolean createCSVOfLogs(SQLiteDatabase mDb, Context context) {
         File exportDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/InformationCapsule/CSV/", "");
-        long previousRowTimeVal = 0;
         if (!exportDir.exists()) {
             boolean mkdirs = exportDir.mkdirs();
             if(!mkdirs) {
+                Log.d("CSVError: ", "PING0");
                 return false;
             }
         }
@@ -116,11 +120,13 @@ public class DBOperations {
             if (outputFile.exists()) {
                 boolean delete = outputFile.delete();
                 if(!delete) {
+                    Log.d("CSVError: ", "PING1");
                     return false;
                 }
             }
             boolean isCreated = outputFile.createNewFile();
             if (!isCreated) {
+                Log.d("CSVError: ", "PING2");
                 return false;
             }
             CSVWriter csvWriter = new CSVWriter(new FileWriter(outputFile));
@@ -128,14 +134,8 @@ public class DBOperations {
             if(curCSV != null) {
                 csvWriter.writeNext(curCSV.getColumnNames());
                 while(curCSV.moveToNext()) {
-                    if(curCSV.isFirst()) {
-                        previousRowTimeVal = Long.parseLong(curCSV.getString(1));
-                    }
-
-                    String arrString[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2), curCSV.getString(3), curCSV.getString(4)};
-                    if(Long.parseLong(curCSV.getString(1)) > previousRowTimeVal) {
-                        csvWriter.writeNext(new String[]{});
-                    }
+                    String arrString[] = {curCSV.getString(0), curCSV.getString(1), curCSV.getString(2),
+                            curCSV.getString(3), curCSV.getString(4)};
                     csvWriter.writeNext(arrString);
                 }
                 csvWriter.close();
@@ -144,12 +144,14 @@ public class DBOperations {
                 return true;
             }
             else {
+                Log.d("CSVError: ", "PING3");
                 return false;
             }
 
         } catch (Exception e) {
             Log.e("MainActivity", e.getMessage(), e);
 //            e.printStackTrace();
+            Log.d("CSVError: ", "PING4");
             return false;
         }
     }

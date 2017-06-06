@@ -10,4 +10,7 @@ public class LoginResponse {
 
     @SerializedName("response")
     public String response;
+
+    @SerializedName("user")
+    public User user;
 }

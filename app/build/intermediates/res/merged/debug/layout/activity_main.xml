@@ -103,36 +103,37 @@
 
     <include layout="@layout/content_main" />
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--app:backgroundTint="#008000"-->
-        <!--app:elevation="6dp"-->
-        <!--android:layout_margin="16dp"-->
-        <!--android:layout_gravity="end|bottom"-->
-        <!--app:srcCompat="@drawable/call"-->
-        <!--android:clickable="true"/>-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:backgroundTint= "@color/accent_dark"
+        app:elevation="6dp"
+        android:layout_margin="16dp"
+        android:layout_gravity="left|bottom"
+        app:srcCompat="@drawable/log"
+        android:clickable="true"/>
 
-    <!--<View-->
-        <!--android:id="@+id/dummy"-->
-        <!--android:layout_width="1dp"-->
-        <!--android:layout_height="16dp"-->
-        <!--app:layout_anchor="@id/fab"-->
-        <!--app:layout_anchorGravity="top|right|end" />-->
+    <View
+        android:id="@+id/dummy"
+        android:layout_width="1dp"
+        android:layout_height="16dp"
+        app:layout_anchor="@id/fab"
+        app:layout_anchorGravity="top|left|end" />
 
-    <!--<android.support.design.widget.FloatingActionButton-->
-        <!--android:id="@+id/fab1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="end|top"-->
-        <!--app:backgroundTint="@color/accent_dark"-->
-        <!--app:elevation="6dp"-->
-        <!--android:layout_margin="16dp"-->
-        <!--app:srcCompat="@drawable/fav"-->
-        <!--app:layout_anchor="@id/dummy"-->
-        <!--app:layout_anchorGravity="top|right|end"-->
-        <!--android:clickable="true"/>-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        app:backgroundTint="@color/accent_dark"
+        app:elevation="6dp"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/user"
+        app:layout_anchor="@id/dummy"
+        app:layout_anchorGravity="top|left|end"
+        android:clickable="true"/>
+
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab1"
@@ -144,6 +145,37 @@
         android:layout_margin="16dp"
         app:srcCompat="@drawable/fav"
         android:clickable="true"/>
+
+    <View
+        android:id="@+id/dummy1"
+        android:layout_width="1dp"
+        android:layout_height="16dp"
+        app:layout_anchor="@id/fab1"
+        app:layout_anchorGravity="top|right|end" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|top"
+        app:backgroundTint="@color/accent_dark"
+        app:elevation="6dp"
+        android:layout_margin="16dp"
+        app:srcCompat="@drawable/csv"
+        app:layout_anchor="@id/dummy1"
+        app:layout_anchorGravity="top|right|end"
+        android:clickable="true"/>
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fab1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|end"-->
+        <!--app:backgroundTint="@color/accent_dark"-->
+        <!--app:elevation="6dp"-->
+        <!--android:layout_margin="16dp"-->
+        <!--app:srcCompat="@drawable/fav"-->
+        <!--android:clickable="true"/>-->
 
     <!--<FrameLayout-->
         <!--android:id="@+id/frame_layout"-->

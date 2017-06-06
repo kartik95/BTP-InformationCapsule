@@ -214,7 +214,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="28855d5761231093a89f24d60bfe1ec5a57cb124">
+        sha1="4f663d7f0ef425f375a710cdcfc8e8929c87eb18">
         <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_e727bc072b4df6030d719223085f2606ac417560/classes.dex" />
     </item>
     <item
@@ -313,7 +313,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.2"
-        sha1="f48608ca0fa99d194fc49c1a1a7e7247fb1beb6e">
+        sha1="d5b647a251beffa13a06667e584e023ddf616a0a">
         <dex dex="/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_f2378fd2527aa7b051506f216f4381ee992e32c5/classes.dex" />
     </item>
     <item

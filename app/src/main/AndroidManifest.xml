@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="btp.psychosocialeducationapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:name=".InfoCapsuleApp"
         android:allowBackup="true"
@@ -59,6 +63,7 @@
             android:label="@string/title_activity_favorites"
             android:configChanges="locale"
             android:theme="@style/MyMaterialTheme"/>
+
     </application>
 
 </manifest>

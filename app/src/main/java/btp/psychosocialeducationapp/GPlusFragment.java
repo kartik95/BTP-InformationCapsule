@@ -36,13 +36,25 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 import com.google.android.gms.plus.Plus;
 import com.google.android.gms.plus.model.people.Person;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonPrimitive;
+import com.google.gson.JsonSerializationContext;
+import com.google.gson.JsonSerializer;
 
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import btp.psychosocialeducationapp.API.APIClient;
 import btp.psychosocialeducationapp.API.LoginResponse;
+import btp.psychosocialeducationapp.API.User;
 import btp.psychosocialeducationapp.API.UserAPI;
 import btp.psychosocialeducationapp.API.UserInfo;
 import retrofit.Callback;
@@ -190,67 +202,105 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
     private void handleSignInResult(GoogleSignInResult result) {
         Log.d(TAG, "handleSignInResult:" + result.isSuccess());
         if (result.isSuccess()) {
-            try {
-                if (result.getSignInAccount() != null) {
-//                    Person currentPerson = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-//                    String personName = currentPerson.getDisplayName();
-//                    String personPhotoUrl = currentPerson.getImage().getUrl();
-//                    String email = Plus.AccountApi.getAccountName(mGoogleApiClient);
+            if (result.getSignInAccount() != null) {
 
-                    //username.setText(personName);
-                    //emailLabel.setText(email);
-
-                    //new LoadProfileImage(image).execute(personPhotoUrl);
-
-                    // update profile frame with new info about Google Account
-                    // profile
-//                    boolean alreadySignedIn = false;
-//                    SharedPreferences prefs = this.getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE);
-//                    Log.d("SP : ", prefs.getAll().toString());
-
-//                    if (prefs.getAll().size() >= 4) {
-////                        alreadySignedIn = true;
-//                        updateUI(true, true);
-//                    }
-                    if(getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE)
-                            .getString("alreadySignedIn", "-1").equals("1")) {
-                        updateUI(true, true);
-                    }
-                    else {
-                        GoogleSignInAccount acct = result.getSignInAccount();
-                        String personName = acct.getDisplayName();
-                        String email = acct.getEmail();
-                        Uri personPhotoUrl = acct.getPhotoUrl();
-                        String personId = acct.getId();
-
-                        SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit();
-                        editor.putString("id", personId);
-                        editor.putString("name", personName);
-                        editor.putString("email", email);
-                        editor.putString("url", String.valueOf(personPhotoUrl));
-                        editor.commit();
-
-                        updateUI(true, false);
-                    }
+                if(getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE)
+                        .getString("alreadySignedIn", "-1").equals("1")) {
+                    updateUI(true, true);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
-                updateUI(false, false);
+                else {
+                    GoogleSignInAccount acct = result.getSignInAccount();
+                    String personName = acct.getDisplayName();
+                    final String email = acct.getEmail();
+                    Uri personPhotoUrl = acct.getPhotoUrl();
+                    String personId = acct.getId();
+
+                    SharedPreferences.Editor editor = this.getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit();
+                    editor.putString("id", personId);
+                    editor.putString("name", personName);
+                    editor.putString("email", email);
+                    editor.putString("url", String.valueOf(personPhotoUrl));
+                    editor.commit();
+
+                    UserInfo userInfo = new UserInfo(personId, email);
+                    apiClient.getUserAPI().login(userInfo, new Callback<LoginResponse>() {
+                        @Override
+                        public void success(LoginResponse loginResponse, Response response) {
+//                            Log.d("LoginAPIResponse : ", loginResponse.user.getEmailId());
+                            if(loginResponse.response.equals("success")) {
+                                User user = loginResponse.user;
+                                Log.d("LoginAPIResponse : ", user.getSavedPreferences().toString());
+                                Log.d("LoginAPIResponse : ", user.getEmailId());
+                                Log.d("LoginAPIResponse : ", user.getSavedPreferencesPositions().toString());
+//                                Log.d("LoginAPIResponse : ", user.getSavedPreferences().toString());
+                                SharedPreferences.Editor ed = getActivity().getSharedPreferences("My_Prefs1", Context.MODE_PRIVATE)
+                                        .edit();
+                                ed.putString("gender", user.getGender());
+                                ed.putString("age", user.getAge());
+                                ed.putString("phone", user.getPrimaryContact());
+                                ed.putString("alternatePhone", user.getAltContact());
+                                ed.apply();
+
+                                saveNewsFeedsToPreferences(user.getSavedPreferencesPositions(),
+                                        user.getSavedPreferences());
+
+                                updateUI(true, true);
+                            }
+                            else if(loginResponse.response.equals("failure")) {
+                                getActivity().getSharedPreferences("RegisteredStatus", Context.MODE_PRIVATE)
+                                        .edit().putString("regStatus", "NR").apply();
+                                updateUI(true, false);
+                            }
+                            else {
+                                Toast.makeText(getActivity(),"Login Error",Toast.LENGTH_SHORT).show();
+                                getActivity().getSharedPreferences("RegisteredStatus", Context.MODE_PRIVATE)
+                                        .edit().putString("regStatus", "NR").apply();
+                                updateUI(false, false);
+                            }
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Toast.makeText(getActivity(),"Login API Error",Toast.LENGTH_SHORT).show();
+                            Log.d("Retrofit Login Error : ", error.toString());
+                            updateUI(false, false);
+                        }
+                    });
+
+//                    updateUI(true, false);
+                }
             }
 
-            // Signed in successfully, show authenticated UI.
-//            GoogleSignInAccount acct = result.getSignInAccount();
-//            mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-//            //Similarly you can get the email and photourl using acct.getEmail() and  acct.getPhotoUrl()
-//
-//            if(acct.getPhotoUrl() != null)
-//                new LoadProfileImage(imgProfilePic).execute(acct.getPhotoUrl().toString());
-
-//            updateUI(true);
         } else {
             // Signed out, show unauthenticated UI.
+//            Toast.makeText(getActivity(),"Couldn't Sign In.",Toast.LENGTH_SHORT).show();
             updateUI(false, false);
         }
+    }
+
+
+    private void saveNewsFeedsToPreferences(List<String> savedPreferencesPositions,
+                                            List<NewsFeed> savedPreferences){
+
+        SharedPreferences.Editor editor = getActivity().getSharedPreferences("My_Prefs2", Context.MODE_PRIVATE).edit();
+        editor.clear();
+
+        Log.d("SIZE1 : ", Integer.toString(savedPreferencesPositions.size()));
+        Log.d("SPP : ", savedPreferencesPositions.toString());
+        Log.d("SIZE2 : ", Integer.toString(savedPreferences.size()));
+//        Log.d("SP : ", savedPreferences.)
+
+        Gson gson = new GsonBuilder().registerTypeAdapter(Uri.class, new GPlusFragment.UriSerializer()).create();
+//        List<String> mapKeys = new ArrayList<>(savedNewsFeeds.keySet());
+        Set<String> keysSet = new HashSet<>(savedPreferencesPositions);
+        Log.d("KEYSET : ", keysSet.toString());
+        editor.putStringSet("mapKeys", keysSet);
+        for(int i=0; i<savedPreferences.size(); i++){
+            String value = gson.toJson(savedPreferences.get(i));
+//            String value = gson.toJson(savedPreferences.get(Integer.parseInt(savedPreferencesPositions.get(i))));
+            editor.putString(savedPreferencesPositions.get(i), value);
+        }
+        editor.apply();
     }
 
 
@@ -270,7 +320,7 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
 //                        receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //            }
             LogData receivedLog = dbSingleton.getLastLog();
-            Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+            Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                     receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
 
             getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit().putString("alreadySignedIn", "1").apply();
@@ -291,7 +341,7 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
 //                        receivedLogs.get(i).getEmail() + ", " + receivedLogs.get(i).getLog() + "}");
 //            }
             LogData receivedLog = dbSingleton.getLastLog();
-            Log.d("Received Last Log : ", "{" + receivedLog.getUserId() + ", " +
+            Log.d("Received Last Log : ", "{" + receivedLog.getTimeStamp() + ", " + receivedLog.getUserId() + ", " +
                     receivedLog.getEmail() + ", " + receivedLog.getLog() + "}");
 
             getActivity().getSharedPreferences("My_Prefs", Context.MODE_PRIVATE).edit().putString("alreadySignedIn", "1").apply();
@@ -332,6 +382,12 @@ public class GPlusFragment extends Fragment implements GoogleApiClient.OnConnect
             mProgressDialog.hide();
         }
 
+    }
+
+    public class UriSerializer implements JsonSerializer<Uri> {
+        public JsonElement serialize(Uri src, Type typeOfSrc, JsonSerializationContext context) {
+            return new JsonPrimitive(src.toString());
+        }
     }
 }
 

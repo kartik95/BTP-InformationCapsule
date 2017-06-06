@@ -1,4 +1,4 @@
-#Wed Apr 19 15:37:29 IST 2017
+#Tue Jun 06 06:53:11 IST 2017
 base.0=/home/gkartik/Documents/BTP/BTP-InformationCapsule/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_e727bc072b4df6030d719223085f2606ac417560
 renamed.1=classes2.dex
 renamed.0=classes.dex

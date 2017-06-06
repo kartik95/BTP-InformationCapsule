@@ -6,6 +6,7 @@ package btp.psychosocialeducationapp;
 
 public class LogData {
 
+    private String timeStamp;
     private String userId;
     private String email;
     private String log;
@@ -19,6 +20,9 @@ public class LogData {
         this.email = email;
         this.log = log;
     }
+
+    public String getTimeStamp() {return this.timeStamp;}
+    public void setTimeStamp(String timeStamp) {this.timeStamp = timeStamp;}
 
     public String getUserId() {return this.userId;}
     public void setUserId(String userId) {this.userId = userId;}
